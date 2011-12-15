@@ -9,8 +9,8 @@ type internal ConstructModel<'a>(b : IXamlBuilder, conv : ValueConverter)=
   let builder = b
   let converter = conv
 
-  let dict = new Dictionary<string,Object>()
-  let addVK (v,k) = dict.Add(k, v)
+  let actions = new List<'a->unit>()
+  let add = actions.Add
   
   let getXaml (obj  : Object)=
     let func = obj :?> Func<IXamlBuilder,XamlCreator>
@@ -22,12 +22,11 @@ type internal ConstructModel<'a>(b : IXamlBuilder, conv : ValueConverter)=
     let xamls = func.Invoke builder
     xamls |> Array.map (fun x -> x.GetXamlObject())
   
-  member x.AddSingle name value = 
-    let v = converter.GetValue<'a> name value
-    dict.Add(name, v)
+  member x.AddSingle name (value : Object) = 
+    converter.GetAction<'a> name value |> add
   
   member x.AddMulti name args =
-    name |> splitOnAnd |> Seq.zip args |> Seq.iter addVK
+    name |> splitOnAnd |> Seq.zip args |> Seq.iter (fun (value,name) -> x.AddSingle name value)
 
   member x.AddNested name (args : Object[])= 
     getXaml(args.[0]) |> x.AddSingle name
@@ -36,7 +35,7 @@ type internal ConstructModel<'a>(b : IXamlBuilder, conv : ValueConverter)=
     getManyXaml(args.[0]) |> x.AddSingle name
 
   member x.Play thing = 
-    dict |> Seq.iter (fun kv -> thing?(kv.Key) <- kv.Value)
+    actions |> Seq.iter (fun applyTo -> applyTo thing)
     thing
 
 

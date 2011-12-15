@@ -21,13 +21,14 @@ type internal ValueConverter()=
         | Some(converter) -> converter.ConvertFrom(null,System.Globalization.CultureInfo.InvariantCulture,value)
         | None -> failwith "dead"
 
-    member x.GetValue<'a> propName value=
+    member x.GetAction<'a> propName (value : Object)=
         let proptype = (typeof<'a>.GetPropertyType propName)
         if proptype.IsAssignableFrom(value.GetType()) then
-          value
+          fun (a : 'a) -> a?(propName) <- value
         else
           try
-            convert (proptype.GetConverter()) value
+            let converted = convert (proptype.GetConverter()) value
+            fun (a : 'a) -> a?(propName) <- converted
           with
             | :? Exception -> sprintf "No converter found to convert %s to target type %s" (value.GetType().Name) proptype.Name |> invalidOp
 
