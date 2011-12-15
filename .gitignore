@@ -1,0 +1,14 @@
+obj
+bin
+out
+packages
+NDependOut*
+_cache
+_ReSharper.*
+*.user
+*.resharper
+*.ReSharper
+*.suo
+*.cache
+*.~
+*.swp
