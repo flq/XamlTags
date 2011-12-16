@@ -6,7 +6,7 @@ namespace XamlTags.Tests
 {
     public class XamlUsageContext<T>
     {
-        private readonly XamBuilder _builder = new XamBuilder();
+        protected readonly XamBuilder _builder = new XamBuilder();
         protected dynamic _xaml;
 
         [SetUp]

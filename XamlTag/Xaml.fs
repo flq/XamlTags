@@ -10,13 +10,15 @@ type Xaml<'a> internal (b : IXamlBuilder, c : SetterFactory, ?dc : Object)=
   let model = new ConstructModel<'a>(b,c,dc)
   let thing = lazy(Activator.CreateInstance<'a>() |> model.Play)
   
-  let (|Single|Multi|NestedFunc|NestedManyFunc|) (binder : InvokeMemberBinder, args : Object[]) =
+  let (|Single|Multi|NestedFunc|NestedManyFunc|BindingOperation|) (binder : InvokeMemberBinder, args : Object[]) =
     if binder.Name.Contains("And") then
       Multi
     elif args.[0] :? Func<IXamlBuilder,XamlCreator> then
       NestedFunc
     elif args.[0] :? Func<IXamlBuilder,XamlCreator[]> then
       NestedManyFunc
+    elif binder.Name.StartsWith("Bind") then
+      BindingOperation
     else
       Single
      
@@ -32,6 +34,7 @@ type Xaml<'a> internal (b : IXamlBuilder, c : SetterFactory, ?dc : Object)=
     | Multi ->  model.AddMulti binder.Name args
     | NestedFunc -> model.AddNested binder.Name args
     | NestedManyFunc -> model.AddNestedMany binder.Name args
+    | BindingOperation -> model.AddBinding binder args
     result <- x
     true
       

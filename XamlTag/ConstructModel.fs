@@ -24,6 +24,11 @@ type internal ConstructModel<'a>(b : IXamlBuilder, conv : SetterFactory, dc : Ob
     match dataContext with
     | Some(dataContext) -> dataContext |> setDataContext |> add
     | None -> ()
+
+  let failIfNoFrameworkElement=
+     
+    if not (typeof<FrameworkElement>.IsAssignableFrom(typeof<'a>)) then
+      invalidOp(sprintf "Type %s is not assignable to FrameworkElement, Binding is therefore not supported" typeof<'a>.Name)
   
   let getXaml (obj  : Object)=
     let func = obj :?> Func<IXamlBuilder,XamlCreator>
@@ -46,6 +51,9 @@ type internal ConstructModel<'a>(b : IXamlBuilder, conv : SetterFactory, dc : Ob
 
   member x.AddNestedMany name (args : Object[])= 
     getManyXaml(args.[0]) |> x.AddSingle name
+
+  member x.AddBinding binder (args : Object[])=
+    failIfNoFrameworkElement    
 
   member x.Play thing = 
     actions |> Seq.iter (fun applyTo -> applyTo thing)
