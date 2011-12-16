@@ -8,6 +8,10 @@ open System.Reflection
 let (?<-) (this : 'Source) (property : string) (value : 'Value) =
     this.GetType().GetProperty(property).SetValue(this, value, null)
 
+let (?) (this : 'Source) (prop : string) : 'Result =
+  let p = this.GetType().GetProperty(prop)
+  p.GetValue(this, null) :?> 'Result
+
 // Split a string on 'And'
 let splitOnAnd (s : string) = s.Split([|"And"|], StringSplitOptions.RemoveEmptyEntries)
 

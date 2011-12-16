@@ -7,3 +7,4 @@ type XamlCreator=
 
 type IXamlBuilder=
   abstract member Start<'a> : unit -> [<return: System.Runtime.CompilerServices.DynamicAttribute>] Object
+  abstract member Start<'a> : Object -> [<return: System.Runtime.CompilerServices.DynamicAttribute>] Object

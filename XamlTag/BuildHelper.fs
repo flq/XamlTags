@@ -2,8 +2,8 @@
 open System;
 
 type X()=
-  static member Nest(func : Func<IXamlBuilder,XamlCreator>)=
+  static member N(func : Func<IXamlBuilder,XamlCreator>)=
     func
-  static member NestMany(func : Func<IXamlBuilder,XamlCreator[]>)=
+  static member NM(func : Func<IXamlBuilder,XamlCreator[]>)=
     func
 

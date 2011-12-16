@@ -12,6 +12,7 @@ type internal SetterFactory()=
     let knownSetterProvider = new System.Collections.Generic.List<ISetterProvider>()
     do
       knownSetterProvider.Add(new StandardSetterProvider())
+      knownSetterProvider.Add(new ArrayToListSetter())
       knownSetterProvider.Add(new ConverterBasedSetter())
 
     let convert (converter : TypeConverter option) value =

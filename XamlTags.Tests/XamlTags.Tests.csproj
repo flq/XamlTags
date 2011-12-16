@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicUsage.cs" />
+    <Compile Include="BindingUsage.cs" />
     <Compile Include="ConvertedValues.cs" />
     <Compile Include="NestedUsage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

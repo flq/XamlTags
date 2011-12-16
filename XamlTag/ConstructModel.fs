@@ -3,14 +3,27 @@
 open System
 open System.ComponentModel
 open System.Collections.Generic
+open System.Windows
 open XamlModule
 
-type internal ConstructModel<'a>(b : IXamlBuilder, conv : SetterFactory)=
+type internal ConstructModel<'a>(b : IXamlBuilder, conv : SetterFactory, dc : Object option)=
   let builder = b
   let converter = conv
+  let dataContext = dc
 
   let actions = new List<'a->unit>()
   let add = actions.Add
+
+  let setDataContext datactx=
+    fun (a : 'a) ->
+      if box a :? FrameworkElement then
+        let fw = box a :?> FrameworkElement
+        fw.DataContext <- datactx
+  
+  do 
+    match dataContext with
+    | Some(dataContext) -> dataContext |> setDataContext |> add
+    | None -> ()
   
   let getXaml (obj  : Object)=
     let func = obj :?> Func<IXamlBuilder,XamlCreator>

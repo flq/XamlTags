@@ -4,10 +4,10 @@ open System
 open System.Collections.Generic
 open System.Dynamic
 
-type Xaml<'a> internal (b : IXamlBuilder, c : SetterFactory)=
+type Xaml<'a> internal (b : IXamlBuilder, c : SetterFactory, ?dc : Object)=
   inherit DynamicObject()
   
-  let model = new ConstructModel<'a>(b,c)
+  let model = new ConstructModel<'a>(b,c,dc)
   let thing = lazy(Activator.CreateInstance<'a>() |> model.Play)
   
   let (|Single|Multi|NestedFunc|NestedManyFunc|) (binder : InvokeMemberBinder, args : Object[]) =

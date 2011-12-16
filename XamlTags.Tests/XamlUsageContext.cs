@@ -12,7 +12,8 @@ namespace XamlTags.Tests
         [SetUp]
         public void Given()
         {
-            _xaml = _builder.Start<T>();
+            var o = GetDataContext();
+            _xaml = o != null ? _builder.Start<T>(o) : _builder.Start<T>();
         }
 
         public T Object { get { return _xaml.Create(); } }
@@ -20,6 +21,11 @@ namespace XamlTags.Tests
         protected void IsEqual<Z>(Func<T,Z> selector, Z value)
         {
             Assert.AreEqual(value, selector(Object));
+        }
+
+        protected virtual object GetDataContext()
+        {
+            return null;
         }
     }
 }
