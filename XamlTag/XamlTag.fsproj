@@ -45,7 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="XamlModule.fs" />
-    <Compile Include="ValueConverter.fs" />
+    <Compile Include="SetterProvider.fs" />
+    <Compile Include="SetterFactory.fs" />
     <Compile Include="Interfaces.fs" />
     <Compile Include="ConstructModel.fs" />
     <Compile Include="Xaml.fs" />

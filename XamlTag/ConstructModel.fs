@@ -5,7 +5,7 @@ open System.ComponentModel
 open System.Collections.Generic
 open XamlModule
 
-type internal ConstructModel<'a>(b : IXamlBuilder, conv : ValueConverter)=
+type internal ConstructModel<'a>(b : IXamlBuilder, conv : SetterFactory)=
   let builder = b
   let converter = conv
 

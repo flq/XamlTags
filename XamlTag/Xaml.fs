@@ -4,7 +4,7 @@ open System
 open System.Collections.Generic
 open System.Dynamic
 
-type Xaml<'a> internal (b : IXamlBuilder, c : ValueConverter)=
+type Xaml<'a> internal (b : IXamlBuilder, c : SetterFactory)=
   inherit DynamicObject()
   
   let model = new ConstructModel<'a>(b,c)
