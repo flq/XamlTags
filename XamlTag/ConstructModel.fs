@@ -3,12 +3,13 @@
 open System
 open System.ComponentModel
 open System.Collections.Generic
+open System.Dynamic
 open System.Windows
 open XamlModule
 
 type internal ConstructModel<'a>(b : IXamlBuilder, conv : SetterFactory, dc : Object option)=
   let builder = b
-  let converter = conv
+  let setterFactory = conv
   let dataContext = dc
 
   let actions = new List<'a->unit>()
@@ -26,7 +27,6 @@ type internal ConstructModel<'a>(b : IXamlBuilder, conv : SetterFactory, dc : Ob
     | None -> ()
 
   let failIfNoFrameworkElement=
-     
     if not (typeof<FrameworkElement>.IsAssignableFrom(typeof<'a>)) then
       invalidOp(sprintf "Type %s is not assignable to FrameworkElement, Binding is therefore not supported" typeof<'a>.Name)
   
@@ -41,7 +41,7 @@ type internal ConstructModel<'a>(b : IXamlBuilder, conv : SetterFactory, dc : Ob
     xamls |> Array.map (fun x -> x.GetXamlObject())
   
   member x.AddSingle name (value : Object) = 
-    converter.GetAction<'a> name value |> add
+    setterFactory.GetAction<'a> name value |> add
   
   member x.AddMulti name args =
     name |> splitOnAnd |> Seq.zip args |> Seq.iter (fun (value,name) -> x.AddSingle name value)
@@ -52,8 +52,14 @@ type internal ConstructModel<'a>(b : IXamlBuilder, conv : SetterFactory, dc : Ob
   member x.AddNestedMany name (args : Object[])= 
     getManyXaml(args.[0]) |> x.AddSingle name
 
-  member x.AddBinding binder (args : Object[])=
-    failIfNoFrameworkElement    
+  member x.AddBinding (binder : InvokeMemberBinder) (args : Object[])=
+    failIfNoFrameworkElement
+    let propertyName = binder.Name.Replace("Bind","")
+    let depProp = typeof<'a>.FindDependencyProperty(binder.Name.Replace("Bind",""))
+    match depProp with
+    | Some(depProp) -> setterFactory.GetBindAction<'a> depProp args binder.CallInfo.ArgumentNames |> add
+    | None -> raise(new ArgumentException(sprintf "No DependencyProperty '%s' found on type '%s'" propertyName typeof<'a>.Name))
+    
 
   member x.Play thing = 
     actions |> Seq.iter (fun applyTo -> applyTo thing)

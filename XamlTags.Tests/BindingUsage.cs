@@ -1,4 +1,5 @@
 using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using NUnit.Framework;
@@ -31,15 +32,32 @@ namespace XamlTags.Tests
         }
 
         [Test]
+        public void unknown_property_fails()
+        {
+            var x = Assert.Throws<ArgumentException>(() => _xaml.BindFoo("Text"));
+            x.Message.Should()
+                .Contain("TextBlock").And
+                .Contain("Foo");
+        }
+
+        [Test]
         public void the_binding_is_set()
         {
             _xaml.BindText("Text");
             Object.Text.Should().Be("Hello World");
+        }
+
+        [Test]
+        public void binding_with_a_converter()
+        {
+            _xaml.BindVisibility("Visible", converter: new BooleanToVisibilityConverter());
+            Object.Visibility.Should().Be(Visibility.Collapsed);
         }
     }
 
     public class Model
     {
         public string Text { get; set; }
+        public bool Visible { get { return false; } }
     }
 }

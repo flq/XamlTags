@@ -3,6 +3,7 @@
 open System
 open System.ComponentModel
 open System.Reflection
+open System.Windows
 
 // Dynamic property setter
 let (?<-) (this : 'Source) (property : string) (value : 'Value) =
@@ -38,3 +39,10 @@ type System.Type with
         match att with
         | Some(att) -> Some(att |> instantiateTypeConverter)
         | _ -> None
+    
+    member x.FindDependencyProperty (name : string) : DependencyProperty option=
+      let field = x.GetField(name + "Property", BindingFlags.Static ||| BindingFlags.FlattenHierarchy ||| BindingFlags.Public);
+      if not (field = null) then
+        Some(field.GetValue(null) :?> DependencyProperty)
+      else
+        None
