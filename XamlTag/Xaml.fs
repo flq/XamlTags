@@ -8,7 +8,7 @@ type Xaml<'a> internal (b : IXamlBuilder, c : SetterFactory, ?dc : Object)=
   inherit DynamicObject()
   
   let model = new ConstructModel<'a>(b,c,dc)
-  let thing = lazy(Activator.CreateInstance<'a>() |> model.Play)
+  let xamlObject = lazy(Activator.CreateInstance<'a>() |> model.Play)
   
   let (|Single|Multi|NestedFunc|NestedManyFunc|BindingOperation|) (binder : InvokeMemberBinder, args : Object[]) =
     if binder.Name.Contains("And") then
@@ -22,7 +22,10 @@ type Xaml<'a> internal (b : IXamlBuilder, c : SetterFactory, ?dc : Object)=
     else
       Single
      
-  member x.Create()=thing.Force()
+  member x.Create()=xamlObject.Force()
+
+  member x.CreateFactory() : IXamlFactory<'a>=
+    new XamlFactory<'a>(model.Play) :> IXamlFactory<'a>
 
   interface XamlCreator with
     member x.GetXamlObject()=

@@ -12,13 +12,13 @@ namespace XamlTags.Tests
     {
         protected override object GetDataContext()
         {
-            return new Model { Text = "Hello World" };
+            return new ModelForBinding { Text = "Hello World" };
         }
 
         [Test]
         public void the_data_context_is_set()
         {
-            Object.DataContext.Should().BeAssignableTo<Model>();
+            Object.DataContext.Should().BeAssignableTo<ModelForBinding>();
         }
 
         [Test]
@@ -53,11 +53,5 @@ namespace XamlTags.Tests
             _xaml.BindVisibility("Visible", converter: new BooleanToVisibilityConverter());
             Object.Visibility.Should().Be(Visibility.Collapsed);
         }
-    }
-
-    public class Model
-    {
-        public string Text { get; set; }
-        public bool Visible { get { return false; } }
     }
 }

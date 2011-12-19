@@ -41,6 +41,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +50,7 @@
     <Compile Include="SetterFactory.fs" />
     <Compile Include="Interfaces.fs" />
     <Compile Include="ConstructModel.fs" />
+    <Compile Include="XamlFactory.fs" />
     <Compile Include="Xaml.fs" />
     <Compile Include="XamBuilder.fs" />
     <Compile Include="BuildHelper.fs" />
