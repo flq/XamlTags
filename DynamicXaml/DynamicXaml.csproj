@@ -5,13 +5,14 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{13837C96-F790-4CD8-8281-3F988D826B37}</ProjectGuid>
+    <ProjectGuid>{B33ADAD1-A9D6-4700-8BBE-52243FB1C54E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XamlTags.Tests</RootNamespace>
-    <AssemblyName>XamlTags.Tests</AssemblyName>
+    <RootNamespace>DynamicXaml</RootNamespace>
+    <AssemblyName>DynamicXaml</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,49 +32,34 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentAssertions">
-      <HintPath>..\packages\FluentAssertions.1.6.0\Lib\net40\FluentAssertions.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.mocks">
-      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.mocks.dll</HintPath>
-    </Reference>
-    <Reference Include="pnunit.framework">
-      <HintPath>..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasicUsage.cs" />
-    <Compile Include="ConvertedValues.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="CreationModel.cs" />
+    <Compile Include="Extensions\Maybe.cs" />
+    <Compile Include="Extensions\MaybeExtensions.cs" />
+    <Compile Include="Extensions\StandardExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="InvokeHandler\InvokeContext.cs" />
+    <Compile Include="InvokeHandler\MultiCaseHandler.cs" />
+    <Compile Include="InvokeHandler\RootInvokeContext.cs" />
+    <Compile Include="InvokeHandler\InvokeMemberHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XamlUsageContext.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DynamicXaml\DynamicXaml.csproj">
-      <Project>{B33ADAD1-A9D6-4700-8BBE-52243FB1C54E}</Project>
-      <Name>DynamicXaml</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XamlTag\XamlTag.fsproj">
-      <Project>{7CC3806F-0EC0-44F2-ABD0-7E075487BF29}</Project>
-      <Name>XamlTag</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <Compile Include="SetterSystem\SetterContext.cs" />
+    <Compile Include="SetterSystem\SetterFactory.cs" />
+    <Compile Include="InvokeHandler\SimpleCaseHandler.cs" />
+    <Compile Include="SetterSystem\SetterProvider.cs" />
+    <Compile Include="SetterSystem\SetterProviderFromConverter.cs" />
+    <Compile Include="SetterSystem\StandardSetterProvider.cs" />
+    <Compile Include="Xaml.cs" />
+    <Compile Include="XamlBuilder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

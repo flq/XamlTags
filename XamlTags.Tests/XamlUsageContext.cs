@@ -1,12 +1,12 @@
 ﻿using System;
+using DynamicXaml;
 using NUnit.Framework;
-using XamlTag;
 
 namespace XamlTags.Tests
 {
     public class XamlUsageContext<T>
     {
-        protected readonly XamBuilder _builder = new XamBuilder();
+        protected readonly XamlBuilder _builder = new XamlBuilder();
         protected dynamic _xaml;
 
         [SetUp]
