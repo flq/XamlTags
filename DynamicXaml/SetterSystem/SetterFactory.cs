@@ -13,6 +13,7 @@ namespace DynamicXaml
         {
             _knownSetterProvider.Add(new StandardSetterProvider());
             _knownSetterProvider.Add(new SetterProviderFromConverter());
+            _knownSetterProvider.Add(new ListSetterProvider());
         }
 
         public Action<T> GetSetter<T>(SetterContext ctx)

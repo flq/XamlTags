@@ -1,6 +1,6 @@
 using System.Windows.Controls;
+using DynamicXaml;
 using NUnit.Framework;
-using XamlTag;
 using FluentAssertions;
 
 namespace XamlTags.Tests
@@ -21,7 +21,7 @@ namespace XamlTags.Tests
         [Test]
         public void button_image_and_text()
         {
-            var stackPanelContents = X.NM(b => new XamlCreator[]
+            var stackPanelContents = X.NM(b => new Xaml[]
                                                  {
                                                      b.Start<Image>().Width(124d),
                                                      b.Start<TextBlock>().Text("Hello")

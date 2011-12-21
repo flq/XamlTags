@@ -32,6 +32,8 @@ namespace DynamicXaml.Extensions
 
         public static Maybe<T> Cast<T>(this Maybe maybeValue) where T : class
         {
+            if (!maybeValue.HasValue || !maybeValue.Value.CanBeCastTo<T>())
+                return Maybe<T>.None;
             return new Maybe<T>((T)maybeValue.Value);
         }
     }

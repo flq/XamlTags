@@ -6,7 +6,12 @@ using DynamicXaml.Extensions;
 
 namespace DynamicXaml
 {
-    public class Xaml<T> : DynamicObject
+    public interface Xaml
+    {
+        object Create();
+    }
+
+    public class Xaml<T> : DynamicObject, Xaml
     {
         private readonly XamlBuilder _xamlBuilder;
         private readonly List<InvokeMemberHandler> _invokeMemberHandler;
@@ -23,8 +28,8 @@ namespace DynamicXaml
 
         public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
         {
-            var callContext = new RootInvokeContext<T>(binder, args, _creationModel, _xamlBuilder.SetterFactory);
-            _invokeMemberHandler.MaybeFirst(h => h.CanHandle(callContext)).Do(h => h.Handle(callContext));
+            var callContext = new RootInvokeContext<T>(binder, args, _xamlBuilder, _invokeMemberHandler);
+            callContext.TransferRecordedActionsInto(_creationModel);
             result = this;
             return true;
         }
@@ -32,6 +37,11 @@ namespace DynamicXaml
         public T Create()
         {
             return _created.Value;
+        }
+
+        object Xaml.Create()
+        {
+            return Create();
         }
     }
 }

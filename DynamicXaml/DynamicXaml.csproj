@@ -47,17 +47,21 @@
     <Compile Include="Extensions\MaybeExtensions.cs" />
     <Compile Include="Extensions\StandardExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="IActionRecorder.cs" />
     <Compile Include="InvokeHandler\InvokeContext.cs" />
     <Compile Include="InvokeHandler\MultiCaseHandler.cs" />
+    <Compile Include="InvokeHandler\NestedInvokeHandler.cs" />
     <Compile Include="InvokeHandler\RootInvokeContext.cs" />
     <Compile Include="InvokeHandler\InvokeMemberHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetterSystem\ListSetterProvider.cs" />
     <Compile Include="SetterSystem\SetterContext.cs" />
     <Compile Include="SetterSystem\SetterFactory.cs" />
     <Compile Include="InvokeHandler\SimpleCaseHandler.cs" />
     <Compile Include="SetterSystem\SetterProvider.cs" />
     <Compile Include="SetterSystem\SetterProviderFromConverter.cs" />
     <Compile Include="SetterSystem\StandardSetterProvider.cs" />
+    <Compile Include="X.cs" />
     <Compile Include="Xaml.cs" />
     <Compile Include="XamlBuilder.cs" />
   </ItemGroup>

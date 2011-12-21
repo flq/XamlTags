@@ -13,6 +13,7 @@ namespace DynamicXaml
         public XamlBuilder()
         {
             _knownInvokeMemberHandlers.Add(new MultiCaseHandler());
+            _knownInvokeMemberHandlers.Add(new NestedInvokeHandler());
             _knownInvokeMemberHandlers.Add(new SimpleCaseHandler());
         }
 
