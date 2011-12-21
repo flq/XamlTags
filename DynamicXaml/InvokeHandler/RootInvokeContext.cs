@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using DynamicXaml.Extensions;
+using System.Linq;
 
 namespace DynamicXaml
 {
@@ -49,6 +50,11 @@ namespace DynamicXaml
             _recordedActions.Add(_builder.SetterFactory.GetSetter<T>(setterContext));
         }
 
+        public void AddSetterWith(BindSetterContext setterContext)
+        {
+            _recordedActions.Add(_builder.SetterFactory.GetSetter<T>(setterContext));
+        }
+
         public InvokeContext ExecuteChildContext(string name = null, object[] args = null)
         {
             var context = new RootInvokeContext<T>(_binder, args ?? _args, _builder, new List<InvokeMemberHandler>(_invokeMemberHandler));
@@ -56,6 +62,14 @@ namespace DynamicXaml
                 context.Name = name;
             context._parent = this;
             return context;
+        }
+
+        public object GetValueForArgumentName(string key)
+        {
+            var index = _binder.CallInfo.ArgumentNames.IndexOf(key);
+            if (index > -1)
+                return _args[index + 1]; // First is always assumed to be unnamed
+            return null;
         }
 
         public void TransferRecordedActionsInto(IActionRecorder<T> actionRecorder)

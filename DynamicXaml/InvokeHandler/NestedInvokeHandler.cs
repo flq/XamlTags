@@ -12,17 +12,17 @@ namespace DynamicXaml
             return value.CanBeCastTo<Func<XamlBuilder, Xaml>>() || value.CanBeCastTo<Func<XamlBuilder, Xaml[]>>();
         }
 
-        public void Handle(InvokeContext callContext)
+        public void Handle(InvokeContext ctx)
         {
-            callContext.Values[0].ToMaybe()
+            ctx.Values[0].ToMaybe()
                 .Cast<Func<XamlBuilder, Xaml>>()
-                .Get(func => func(callContext.Builder).Create())
-                .Do(xaml => RunChildContext(callContext, xaml));
+                .Get(func => func(ctx.Builder).Create())
+                .Do(xaml => RunChildContext(ctx, xaml));
 
-            callContext.Values[0].ToMaybe()
+            ctx.Values[0].ToMaybe()
                 .Cast<Func<XamlBuilder, Xaml[]>>()
-                .Get(func => func(callContext.Builder))
-                .Do(xamls => RunChildContext(callContext, xamls.Select(x => x.Create()).ToArray()));
+                .Get(func => func(ctx.Builder))
+                .Do(xamls => RunChildContext(ctx, xamls.Select(x => x.Create()).ToArray()));
         }
 
         private static void RunChildContext(InvokeContext parent, object xaml)

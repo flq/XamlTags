@@ -9,6 +9,8 @@ namespace DynamicXaml
         object[] Values { get; }
         XamlBuilder Builder { get; }
         void AddSetterWith(SetterContext setterContext);
+        void AddSetterWith(BindSetterContext setterContext);
         InvokeContext ExecuteChildContext(string name = null, object[] args=null);
+        object GetValueForArgumentName(string name);
     }
 }

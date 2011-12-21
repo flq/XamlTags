@@ -11,15 +11,15 @@ namespace DynamicXaml
             return callContext.Name.Contains("And");
         }
 
-        public void Handle(InvokeContext callContext)
+        public void Handle(InvokeContext ctx)
         {
-            var names = callContext.Name.Split(new string[] { "And" }, StringSplitOptions.RemoveEmptyEntries);
+            var names = ctx.Name.Split(new string[] { "And" }, StringSplitOptions.RemoveEmptyEntries);
 
-            var propType = callContext.XamlType.GetPropertyTypeProvider();
+            var propType = ctx.XamlType.GetPropertyTypeProvider();
 
-            names.Zip(callContext.Values, (s, o) => new { PropName = s, Value = o })
+            names.Zip(ctx.Values, (s, o) => new { PropName = s, Value = o })
                 .Select(a => new SetterContext(a.PropName, propType(a.PropName), a.Value))
-                .ForEach(callContext.AddSetterWith);
+                .ForEach(ctx.AddSetterWith);
         }
     }
 }

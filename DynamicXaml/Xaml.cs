@@ -14,14 +14,16 @@ namespace DynamicXaml
     public class Xaml<T> : DynamicObject, Xaml
     {
         private readonly XamlBuilder _xamlBuilder;
+        private readonly object _dataContext;
         private readonly List<InvokeMemberHandler> _invokeMemberHandler;
         private readonly CreationModel<T> _creationModel;
         private readonly Lazy<T> _created;
 
-        public Xaml(XamlBuilder xamlBuilder)
+        public Xaml(XamlBuilder xamlBuilder,  object dataContext = null)
         {
             _xamlBuilder = xamlBuilder;
-            _creationModel = new CreationModel<T>();
+            _dataContext = dataContext;
+            _creationModel = new CreationModel<T>(dataContext);
             _invokeMemberHandler = _xamlBuilder.GetInvokeMemberHandler().ToList();
             _created = new Lazy<T>(()=>_creationModel.Play(Activator.CreateInstance<T>()));
         }

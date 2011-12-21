@@ -12,11 +12,11 @@ namespace DynamicXaml
             return true;
         }
 
-        public void Handle(InvokeContext callContext)
+        public void Handle(InvokeContext ctx)
         {
-            var propertyName = callContext.Name;
-            var propertyType = callContext.XamlType.GetPropertyType(propertyName);
-            callContext.AddSetterWith(new SetterContext(propertyName, propertyType, callContext.Values[0]));
+            var propertyName = ctx.Name;
+            var propertyType = ctx.XamlType.GetPropertyType(propertyName);
+            ctx.AddSetterWith(new SetterContext(propertyName, propertyType, ctx.Values[0]));
         }
     }
 }

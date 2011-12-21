@@ -11,9 +11,21 @@ namespace DynamicXaml.Extensions
             return items.FirstOrDefault(predicate).ToMaybe();
         }
 
+        public static Maybe<T> MaybeFirst<T>(this IEnumerable<T> items) where T : class
+        {
+            return items.FirstOrDefault(_ => true).ToMaybe();
+        }
+
         public static Maybe<T> ToMaybe<T>(this T @object) where T : class
         {
             return new Maybe<T>(@object);
+        }
+
+        public static T MustHaveValue<T>(this Maybe<T> @object, Exception raiseIfNoValue = null) where T : class
+        {
+            if (!@object.HasValue)
+                throw raiseIfNoValue ?? new InvalidOperationException("Maybe<{0}> has no value and hence a value is not obtainable".Fmt(typeof(T).Name));
+            return @object.Value;
         }
 
         public static Maybe<T> Do<T>(this Maybe<T> value, Action<T> action) where T : class

@@ -1,5 +1,7 @@
 using System;
 using System.ComponentModel;
+using System.Reflection;
+using System.Windows;
 
 namespace DynamicXaml.Extensions
 {
@@ -18,6 +20,12 @@ namespace DynamicXaml.Extensions
             return s => t.GetPropertyType(s);
         }
 
+        public static Maybe<DependencyProperty> FindDependencyProperty(this Type t, string propertyName)
+        {
+            var field = t.GetField(propertyName + "Property", BindingFlags.Static | BindingFlags.FlattenHierarchy | BindingFlags.Public);
+            return field != null ? ((DependencyProperty)field.GetValue(null)).ToMaybe() : Maybe<DependencyProperty>.None;
+        }
+
         public static void SetValue(this object o, string propertyName, object value)
         {
             o.GetType().GetProperty(propertyName).SetValue(o, value,null);
@@ -26,6 +34,11 @@ namespace DynamicXaml.Extensions
         public static T GetValue<T>(this object o, string propertyName)
         {
             return (T)o.GetType().GetProperty(propertyName).GetValue(o, null);
+        }
+
+        public static T Cast<T>(this object o)
+        {
+            return (T)o;
         }
 
 
