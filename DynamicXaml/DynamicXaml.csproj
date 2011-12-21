@@ -54,6 +54,7 @@
     <Compile Include="InvokeHandler\NestedInvokeHandler.cs" />
     <Compile Include="InvokeHandler\RootInvokeContext.cs" />
     <Compile Include="InvokeHandler\InvokeMemberHandler.cs" />
+    <Compile Include="IXamlFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetterSystem\BindSetterContext.cs" />
     <Compile Include="SetterSystem\ListSetterProvider.cs" />

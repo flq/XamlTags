@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlTags.Tests", "XamlTags.Tests\XamlTags.Tests.csproj", "{13837C96-F790-4CD8-8281-3F988D826B37}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "XamlTag", "XamlTag\XamlTag.fsproj", "{7CC3806F-0EC0-44F2-ABD0-7E075487BF29}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicXaml", "DynamicXaml\DynamicXaml.csproj", "{B33ADAD1-A9D6-4700-8BBE-52243FB1C54E}"
 EndProject
 Global
@@ -17,10 +15,6 @@ Global
 		{13837C96-F790-4CD8-8281-3F988D826B37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13837C96-F790-4CD8-8281-3F988D826B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13837C96-F790-4CD8-8281-3F988D826B37}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7CC3806F-0EC0-44F2-ABD0-7E075487BF29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7CC3806F-0EC0-44F2-ABD0-7E075487BF29}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7CC3806F-0EC0-44F2-ABD0-7E075487BF29}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7CC3806F-0EC0-44F2-ABD0-7E075487BF29}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B33ADAD1-A9D6-4700-8BBE-52243FB1C54E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B33ADAD1-A9D6-4700-8BBE-52243FB1C54E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B33ADAD1-A9D6-4700-8BBE-52243FB1C54E}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -14,7 +14,6 @@ namespace DynamicXaml
     public class Xaml<T> : DynamicObject, Xaml
     {
         private readonly XamlBuilder _xamlBuilder;
-        private readonly object _dataContext;
         private readonly List<InvokeMemberHandler> _invokeMemberHandler;
         private readonly CreationModel<T> _creationModel;
         private readonly Lazy<T> _created;
@@ -22,7 +21,6 @@ namespace DynamicXaml
         public Xaml(XamlBuilder xamlBuilder,  object dataContext = null)
         {
             _xamlBuilder = xamlBuilder;
-            _dataContext = dataContext;
             _creationModel = new CreationModel<T>(dataContext);
             _invokeMemberHandler = _xamlBuilder.GetInvokeMemberHandler().ToList();
             _created = new Lazy<T>(()=>_creationModel.Play(Activator.CreateInstance<T>()));
@@ -39,6 +37,11 @@ namespace DynamicXaml
         public T Create()
         {
             return _created.Value;
+        }
+
+        public XamlFactory<T> CreateFactory()
+        {
+            return new DefaultXamlFactory<T>(_creationModel.Play);
         }
 
         object Xaml.Create()

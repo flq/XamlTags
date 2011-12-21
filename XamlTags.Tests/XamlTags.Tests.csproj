@@ -59,6 +59,7 @@
     <Compile Include="ConvertedValues.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FactoryUsage.cs" />
     <Compile Include="ModelForBinding.cs" />
     <Compile Include="NestedUsage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

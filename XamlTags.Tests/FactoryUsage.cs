@@ -1,6 +1,6 @@
 using System.Windows.Controls;
+using DynamicXaml;
 using NUnit.Framework;
-using XamlTag;
 using FluentAssertions;
 
 namespace XamlTags.Tests
@@ -14,8 +14,8 @@ namespace XamlTags.Tests
         [TestFixtureSetUp]
         public void Given()
         {
-            var b = new XamBuilder();
-            IXamlFactory<Button> f =
+            var b = new XamlBuilder();
+            XamlFactory<Button> f =
                 b.Start<Button>()
                 .MinWidth(100d)
                 .BindContent("Text")
