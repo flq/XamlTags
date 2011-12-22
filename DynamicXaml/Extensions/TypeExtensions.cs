@@ -45,7 +45,7 @@ namespace DynamicXaml.Extensions
 
         public static bool CanBeCastTo<T>(this object o)
         {
-            return o.GetType().CanBeCastTo<T>();
+            return o != null && o.GetType().CanBeCastTo<T>();
         }
 
         public static bool CanBeCastTo<T>(this Type t)

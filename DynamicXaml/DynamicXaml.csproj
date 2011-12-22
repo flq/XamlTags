@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreationModel.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\Maybe.cs" />
     <Compile Include="Extensions\MaybeExtensions.cs" />
     <Compile Include="Extensions\StandardExtensions.cs" />

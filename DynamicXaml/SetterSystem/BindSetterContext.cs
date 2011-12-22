@@ -28,5 +28,16 @@ namespace DynamicXaml
         {
             return _additionalArguments.Values.OfType<T>().MaybeFirst();
         }
+
+        public bool Get<T>(string key, out T value)
+        {
+            object val;
+            var tryGetValue = _additionalArguments.TryGetValue(key, out val);
+            if (tryGetValue)
+              value = (T)val;
+            else
+              value = default(T);
+            return tryGetValue;
+        }
     }
 }

@@ -37,7 +37,7 @@ namespace DynamicXaml
 
         public object[] Values
         {
-            get { return _args; }
+            get { return _args.Length > 0 ? _args : new object[1]; }
         }
 
         public XamlBuilder Builder

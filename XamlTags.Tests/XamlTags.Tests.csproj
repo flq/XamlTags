@@ -55,10 +55,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicUsage.cs" />
+    <Compile Include="BindingOneWay.cs" />
     <Compile Include="BindingUsage.cs" />
     <Compile Include="ConvertedValues.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BindingDirectly.cs" />
     <Compile Include="FactoryUsage.cs" />
     <Compile Include="ModelForBinding.cs" />
     <Compile Include="NestedUsage.cs" />
