@@ -38,6 +38,16 @@ As you can see, when you prefix a property with __Bind__, DynamicXaml will attem
 
 This expects a bool-field named __Visible__ on the object in the DataContext.
 
+You can bind __directly to the DataContext__ by not specifying a path:
+
+    // Binds straight to the DataContext
+    _xaml.BindText();
+
+If you need __one-way binding__, just say so:
+
+    // Binds to the read-only property Text on the DataContext
+    builder.Start<TextBox>().IsEnabled(false).OneWayBindText("Text");
+    
 ### Nesting
 
 Nesting works by providing certain __Func__ types to a property which in turn produce a __Xaml__ object. There are two helper static methods to provide the correct type: __X.N__ (for nested), __X.NM__ (for nested-multi).
