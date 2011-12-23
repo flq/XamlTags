@@ -21,6 +21,13 @@ namespace DynamicXaml.Extensions
             return new Maybe<T>(@object);
         }
 
+        public static Maybe<Z> Maybe<T,Z>(this T @object, params Func<Maybe<T>,Maybe<Z>>[] maybes) where T : class where Z : class
+        {
+            var v = new Maybe<T>(@object);
+            var ret = maybes.Select(maybe => maybe(v)).FirstOrDefault(maybeZ => maybeZ.HasValue);
+            return ret ?? Maybe<Z>.None;
+        }
+
         public static T MustHaveValue<T>(this Maybe<T> @object, Exception raiseIfNoValue = null) where T : class
         {
             if (!@object.HasValue)

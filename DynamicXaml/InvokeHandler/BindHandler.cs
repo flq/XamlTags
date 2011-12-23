@@ -36,7 +36,7 @@ namespace DynamicXaml
         private static void FailIfXamlNotAFrameworkElement(InvokeContext ctx)
         {
             if (!ctx.XamlType.CanBeCastTo<FrameworkElement>())
-                throw new InvalidOperationException("Type {0} is not assignable to FrameworkElement, Binding is therefore not supported".Fmt(ctx.XamlType.Name));
+                throw new NotSupportedException("Type {0} is not assignable to FrameworkElement, Binding is therefore not supported".Fmt(ctx.XamlType.Name));
         }
     }
 }

@@ -49,12 +49,14 @@
     <Compile Include="Extensions\StandardExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="IActionRecorder.cs" />
+    <Compile Include="InvokeHandler\AddResourceHandler.cs" />
     <Compile Include="InvokeHandler\BindHandler.cs" />
     <Compile Include="InvokeHandler\InvokeContext.cs" />
     <Compile Include="InvokeHandler\MultiCaseHandler.cs" />
     <Compile Include="InvokeHandler\NestedInvokeHandler.cs" />
     <Compile Include="InvokeHandler\RootInvokeContext.cs" />
     <Compile Include="InvokeHandler\InvokeMemberHandler.cs" />
+    <Compile Include="InvokeHandler\StaticResourceHandler.cs" />
     <Compile Include="IXamlFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetterSystem\BindSetterContext.cs" />

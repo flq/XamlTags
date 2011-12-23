@@ -10,6 +10,7 @@ namespace DynamicXaml
         XamlBuilder Builder { get; }
         void AddSetterWith(SetterContext setterContext);
         void AddSetterWith(BindSetterContext setterContext);
+        void AddSetterWith<T>(Action<T> directSetter);
         InvokeContext ExecuteChildContext(string name = null, object[] args=null);
         object GetValueForArgumentName(string name);
     }

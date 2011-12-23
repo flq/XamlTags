@@ -1,4 +1,5 @@
-﻿using DynamicXaml.Extensions;
+﻿using System;
+using DynamicXaml.Extensions;
 
 namespace DynamicXaml
 {

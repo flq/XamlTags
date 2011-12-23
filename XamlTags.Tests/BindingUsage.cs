@@ -24,7 +24,7 @@ namespace XamlTags.Tests
         [Test]
         public void binding_unacceptable_if_element_not_framework_element()
         {
-            var x = Assert.Throws<InvalidOperationException>(()=> _builder.Start<Storyboard>().BindSlipBehavior(SlipBehavior.Slip).Create());
+            var x = Assert.Throws<NotSupportedException>(()=> _builder.Start<Storyboard>().BindSlipBehavior(SlipBehavior.Slip).Create());
             x.Message.Should()
                 .Contain("FrameworkElement").And
                 .Contain("Storyboard").And

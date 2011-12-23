@@ -13,6 +13,8 @@ namespace DynamicXaml
             _knownInvokeMemberHandlers.Add(new MultiCaseHandler());
             _knownInvokeMemberHandlers.Add(new NestedInvokeHandler());
             _knownInvokeMemberHandlers.Add(new BindHandler());
+            _knownInvokeMemberHandlers.Add(new AddResourceHandler());
+            _knownInvokeMemberHandlers.Add(new StaticResourceHandler());
             _knownInvokeMemberHandlers.Add(new SimpleCaseHandler());
         }
 

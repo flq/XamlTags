@@ -55,6 +55,14 @@ namespace DynamicXaml
             _recordedActions.Add(_builder.SetterFactory.GetSetter<T>(setterContext));
         }
 
+        public void AddSetterWith<T1>(Action<T1> directSetter)
+        {
+            if (typeof(T).CanBeCastTo<T1>())
+            {
+                _recordedActions.Add(t => directSetter(t.Cast<T1>()));
+            }
+        }
+
         public InvokeContext ExecuteChildContext(string name = null, object[] args = null)
         {
             var context = new RootInvokeContext<T>(_binder, args ?? _args, _builder, new List<InvokeMemberHandler>(_invokeMemberHandler));
