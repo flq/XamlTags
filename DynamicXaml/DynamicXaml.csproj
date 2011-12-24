@@ -59,6 +59,9 @@
     <Compile Include="InvokeHandler\StaticResourceHandler.cs" />
     <Compile Include="IXamlFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourcesSystem\CompositeResourceLoader.cs" />
+    <Compile Include="ResourcesSystem\IResourceLoader.cs" />
+    <Compile Include="ResourcesSystem\ResourceLoader.cs" />
     <Compile Include="SetterSystem\BindSetterContext.cs" />
     <Compile Include="SetterSystem\ListSetterProvider.cs" />
     <Compile Include="SetterSystem\SetterContext.cs" />

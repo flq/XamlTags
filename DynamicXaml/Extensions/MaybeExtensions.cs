@@ -16,6 +16,11 @@ namespace DynamicXaml.Extensions
             return items.FirstOrDefault(_ => true).ToMaybe();
         }
 
+        public static Maybe<T> MaybeFirst<T>(this IEnumerable<Maybe<T>> items) where T : class
+        {
+            return items.FirstOrDefault(i => i.HasValue) ?? Maybe<T>.None;
+        }
+
         public static Maybe<T> ToMaybe<T>(this T @object) where T : class
         {
             return new Maybe<T>(@object);

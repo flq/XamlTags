@@ -66,12 +66,17 @@
     <Compile Include="ModelForBinding.cs" />
     <Compile Include="NestedUsage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\ResourceLoaderTests.cs" />
     <Compile Include="XamlUsageContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DynamicXaml\DynamicXaml.csproj">
       <Project>{B33ADAD1-A9D6-4700-8BBE-52243FB1C54E}</Project>
       <Name>DynamicXaml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XamlAppForTesting\XamlAppForTesting.csproj">
+      <Project>{C83FC9A1-1473-426D-9DF1-951F22EF799E}</Project>
+      <Name>XamlAppForTesting</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
