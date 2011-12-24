@@ -47,6 +47,7 @@ namespace DynamicXaml
 
         public void AddSetterWith(SetterContext setterContext)
         {
+            setterContext.Builder = _builder;
             _recordedActions.Add(_builder.SetterFactory.GetSetter<T>(setterContext));
         }
 

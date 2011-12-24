@@ -20,7 +20,7 @@ namespace XamlTags.Tests
             x.Message.Should().Contain("FrameworkElement").And.Contain("Resource");
         }
 
-        static IEnumerable PossibleResourceValues
+        static IEnumerable PossibleResourceValues //Used by NUnit via TestcaseSource
         {
             get
             {
@@ -42,12 +42,11 @@ namespace XamlTags.Tests
             ((SolidColorBrush)thing).Color.Should().Be(Colors.Green);
         }
 
-        [Test,Ignore("Need more infrastructure to tell a good story here")]
-        public void reference_a_resource()
+        [Test]
+        public void reference_a_resource_in_own_element()
         {
             _xaml
-                .AddResource("color", new SolidColorBrush(Colors.Green))
-                .Content(X.N(b => b.Start<Rectangle>().StaticFill("color")));
+                .Content(X.N(b => b.Start<Rectangle>().AddResource("color", new SolidColorBrush(Colors.Green)).StaticFill("color")));
 
             var r = (Rectangle)Object.Content;
             ((SolidColorBrush)r.Fill).Color.Should().Be(Colors.Green);

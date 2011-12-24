@@ -13,11 +13,30 @@ namespace DynamicXaml
 
         public void Handle(InvokeContext ctx)
         {
-            throw new NotImplementedException("Setting value StaticResource-Style is currently not supported");
 
             var propertyName = ctx.Name.Replace("Static", "");
             var propertyType = ctx.XamlType.GetPropertyType(propertyName);
-            ctx.AddSetterWith(new SetterContext(propertyName, propertyType, null));
+            ctx.AddSetterWith(new SetterContext(propertyName, propertyType, new StaticResource(ctx.Values[0])));
+        }
+    }
+
+    public class StaticResource
+    {
+        private readonly string _key;
+
+        public StaticResource(object o)
+        {
+            _key = o.ToString();
+        }
+
+        public static implicit operator string(StaticResource r)
+        {
+            return r.Key;
+        }
+
+        public string Key
+        {
+            get { return _key; }
         }
     }
 }

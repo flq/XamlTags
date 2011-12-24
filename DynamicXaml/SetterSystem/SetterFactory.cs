@@ -14,6 +14,7 @@ namespace DynamicXaml
         public SetterFactory()
         {
             _knownSetterProvider.Add(new StandardSetterProvider());
+            _knownSetterProvider.Add(new StaticResourceSetterProvider());
             _knownSetterProvider.Add(new SetterProviderFromConverter());
             _knownSetterProvider.Add(new ListSetterProvider());
         }

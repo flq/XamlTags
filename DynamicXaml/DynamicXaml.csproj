@@ -70,6 +70,7 @@
     <Compile Include="SetterSystem\SetterProvider.cs" />
     <Compile Include="SetterSystem\SetterProviderFromConverter.cs" />
     <Compile Include="SetterSystem\StandardSetterProvider.cs" />
+    <Compile Include="SetterSystem\StaticResourceSetterProvider.cs" />
     <Compile Include="X.cs" />
     <Compile Include="Xaml.cs" />
     <Compile Include="XamlBuilder.cs" />
