@@ -12,4 +12,5 @@ _ReSharper.*
 *.cache
 *.~
 *.swp
+*.nupkg
 readme.html

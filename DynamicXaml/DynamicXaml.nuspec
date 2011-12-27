@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>DynamicXaml</id>
+    <version>$version$</version>
+    <authors>Frank Quednau</authors>
+    <owners>Frank Quednau</owners>
+    <description>Fluent dynamic API for creating XAML Object trees, inspired by the fubu project HtmlTags</description> 
+    <projectUrl>https://github.com/flq/XamlTags</projectUrl>
+    <licenseUrl>http://www.opensource.org/licenses/apache2.0</licenseUrl>
+    <iconUrl>http://realfiction.net/files/dynamicxaml.png</iconUrl>
+    <tags>xaml wpf .net40 dynamic</tags>
+    <language>en-us</language>
+  </metadata>
+</package>
