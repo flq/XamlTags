@@ -64,6 +64,7 @@
     <Compile Include="ResourcesSystem\CompositeResourceLoader.cs" />
     <Compile Include="ResourcesSystem\IResourceLoader.cs" />
     <Compile Include="ResourcesSystem\ResourceLoader.cs" />
+    <Compile Include="ResourcesSystem\ResourceService.cs" />
     <Compile Include="SetterSystem\BindSetterContext.cs" />
     <Compile Include="SetterSystem\ListSetterProvider.cs" />
     <Compile Include="SetterSystem\SetterContext.cs" />

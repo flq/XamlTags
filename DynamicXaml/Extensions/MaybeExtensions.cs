@@ -26,6 +26,11 @@ namespace DynamicXaml.Extensions
             return new Maybe<T>(@object);
         }
 
+        public static Maybe<T> ToMaybe<T>(this T? @object) where T : struct
+        {
+            return @object.HasValue ? new Maybe<T>(@object.Value) : Maybe<T>.None;
+        }
+
         public static Maybe<Z> Maybe<T,Z>(this T @object, params Func<Maybe<T>,Maybe<Z>>[] maybes) where T : class where Z : class
         {
             var v = new Maybe<T>(@object);
@@ -40,21 +45,28 @@ namespace DynamicXaml.Extensions
             return @object.Value;
         }
 
-        public static Maybe<T> Do<T>(this Maybe<T> value, Action<T> action) where T : class
+        public static Maybe<T> Do<T>(this Maybe<T> value, Action<T> action)
         {
             if (value.HasValue)
                 action(value.Value);
             return value;
         }
 
-        public static Maybe<U> Get<T,U>(this Maybe<T> value, Func<T,U> map) where T : class where U : class
+        public static Maybe<U> Get<T,U>(this Maybe<T> value, Func<T,U> map)
         {
             if (value.HasValue)
                 return new Maybe<U>(map(value.Value));
             return Maybe<U>.None;
         }
 
-        public static Maybe<T> Cast<T>(this Maybe maybeValue) where T : class
+        public static Maybe<U> Get<T, U>(this Maybe<T> value, Func<T, Maybe<U>> map)
+        {
+            if (value.HasValue)
+                return map(value.Value);
+            return Maybe<U>.None;
+        }
+
+        public static Maybe<T> Cast<T>(this Maybe maybeValue)
         {
             if (!maybeValue.HasValue || !maybeValue.Value.CanBeCastTo<T>())
                 return Maybe<T>.None;

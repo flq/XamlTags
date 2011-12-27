@@ -8,18 +8,21 @@ namespace DynamicXaml.Extensions
         object Value { get; }
     }
 
-    public class Maybe<T> : Maybe where T : class
+    public class Maybe<T> : Maybe
     {
         private readonly T _o;
+        private readonly bool? _hasValue;
 
-        public Maybe()
-        {
-            _o = null;
-        }
+        public Maybe() : this(default(T), false) { }
+        public Maybe(T o) : this(o, null) { }
 
-        public Maybe(T o)
+        /// <summary>
+        /// Use this to ensure on value types that the maybe acts correctly
+        /// </summary>
+        public Maybe(T o, bool? hasValue)
         {
             _o = o;
+            _hasValue = hasValue;
         }
 
         private static readonly Lazy<Maybe<T>> _none = new Lazy<Maybe<T>>(()=> new Maybe<T>());
@@ -28,7 +31,7 @@ namespace DynamicXaml.Extensions
             get { return _none.Value;}
         }
 
-        public bool HasValue { get { return _o != null; } }
+        public bool HasValue { get { return _hasValue.HasValue ? _hasValue.Value :  _o != null; } }
         public T Value { get { return _o; } }
 
         object Maybe.Value

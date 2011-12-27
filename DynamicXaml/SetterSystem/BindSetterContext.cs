@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using DynamicXaml.Extensions;
 using System.Linq;
@@ -29,15 +28,11 @@ namespace DynamicXaml
             return _additionalArguments.Values.OfType<T>().MaybeFirst();
         }
 
-        public bool Get<T>(string key, out T value)
+        public Maybe<T> Get<T>(string key)
         {
             object val;
             var tryGetValue = _additionalArguments.TryGetValue(key, out val);
-            if (tryGetValue)
-              value = (T)val;
-            else
-              value = default(T);
-            return tryGetValue;
+            return tryGetValue ? new Maybe<T>((T)val) : Maybe<T>.None;
         }
     }
 }

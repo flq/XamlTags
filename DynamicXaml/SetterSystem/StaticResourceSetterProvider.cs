@@ -14,9 +14,11 @@ namespace DynamicXaml
         public Action<T> Setter<T>(SetterContext ctx)
         {
             var v = (StaticResource)ctx.Value;
-            return xaml => (xaml as FrameworkElement).ToMaybe()
-                               .Get(f => f.TryFindResource(v.Key))
-                               .Do(obj => xaml.SetValue(ctx.PropertyName, obj));
+            return xaml => (xaml as FrameworkElement)
+                .Maybe(m => m.Get(f => f.TryFindResource(v.Key))
+                             .Do(obj => xaml.SetValue(ctx.PropertyName, obj)),
+                       m => m.Get(f => ctx.Builder.ResourceService.GetResource<object>(v.Key))
+                             .Do(obj => xaml.SetValue(ctx.PropertyName, obj)));
         }
     }
 }

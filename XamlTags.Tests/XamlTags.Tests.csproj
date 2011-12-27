@@ -68,7 +68,7 @@
     <Compile Include="ModelForBinding.cs" />
     <Compile Include="NestedUsage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\ResourceLoaderTests.cs" />
+    <Compile Include="Resources\ResourceSystemTests.cs" />
     <Compile Include="XamlUsageContext.cs" />
   </ItemGroup>
   <ItemGroup>

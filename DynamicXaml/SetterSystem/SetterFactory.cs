@@ -34,9 +34,7 @@ namespace DynamicXaml
                            var fw = xaml.Cast<FrameworkElement>();
                            var b = new Binding(ctx.Path);
                            ctx.Get<IValueConverter>().Do(vc => b.Converter = vc);
-                           bool oneway;
-                           if (ctx.Get("oneway", out oneway) && oneway)
-                               b.Mode = BindingMode.OneWay;
+                           ctx.Get<bool>("oneway").Do(oneway => b.Mode = BindingMode.OneWay);
                            fw.SetBinding(ctx.DependencyProperty, b);
                        };
         }

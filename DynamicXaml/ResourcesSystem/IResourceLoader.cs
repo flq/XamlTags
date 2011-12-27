@@ -14,5 +14,7 @@ namespace DynamicXaml.ResourcesSystem
         IEnumerable<string> GetResourceNames();
 
         Maybe<ResourceDictionary> GetDictionary(string path);
+
+        IEnumerable<ResourceDictionary> GetDictionaries();
     }
 }

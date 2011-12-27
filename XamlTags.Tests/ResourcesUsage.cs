@@ -7,6 +7,7 @@ using System.Windows.Shapes;
 using DynamicXaml;
 using NUnit.Framework;
 using FluentAssertions;
+using XamlAppForTesting;
 
 namespace XamlTags.Tests
 {
@@ -50,6 +51,16 @@ namespace XamlTags.Tests
 
             var r = (Rectangle)Object.Content;
             ((SolidColorBrush)r.Fill).Color.Should().Be(Colors.Green);
+        }
+
+        [Test]
+        public void reference_a_resource_from_services()
+        {
+            _builder.GetResourcesFrom(typeof(App).Assembly);
+            _xaml.Content(X.N(b => b.Start<Rectangle>().StaticFill("red")));
+
+            var r = (Rectangle)Object.Content;
+            ((SolidColorBrush)r.Fill).Color.Should().Be(Colors.Red);
         }
     }
 }

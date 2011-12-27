@@ -33,5 +33,10 @@ namespace DynamicXaml.ResourcesSystem
         {
             return _loader.Select(l => l.GetDictionary(path)).MaybeFirst();
         }
+
+        public IEnumerable<ResourceDictionary> GetDictionaries()
+        {
+            return _loader.SelectMany(l => l.GetDictionaries());
+        }
     }
 }

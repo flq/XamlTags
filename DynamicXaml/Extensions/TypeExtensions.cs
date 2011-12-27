@@ -41,11 +41,15 @@ namespace DynamicXaml.Extensions
             return (T)o;
         }
 
-
-
         public static bool CanBeCastTo<T>(this object o)
         {
             return o != null && o.GetType().CanBeCastTo<T>();
+        }
+
+        public static bool IsNullableType(this object o)
+        {
+            var type = o != null ? o.GetType() : null;
+            return type != null && type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
 
         public static bool CanBeCastTo<T>(this Type t)

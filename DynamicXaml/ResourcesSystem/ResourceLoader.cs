@@ -15,7 +15,7 @@ namespace DynamicXaml.ResourcesSystem
     public class ResourceLoader : IResourceLoader
     {
         private readonly Assembly _assembly;
-        private Lazy<IEnumerable<string>> _resourcenames;
+        private readonly Lazy<IEnumerable<string>> _resourcenames;
 
 
         public ResourceLoader(Assembly assembly)
@@ -50,6 +50,12 @@ namespace DynamicXaml.ResourcesSystem
             try
             {
                 var dict = new ResourceDictionary();
+                // if the resource dictionary is the app.xaml, an exception occurs if an application is already running
+                // if it is running, we return the resources of the already running app.
+                if (path.ToLowerInvariant().StartsWith("app") && Application.Current != null)
+                {
+                    return Application.Current.Resources.ToMaybe();
+                }
                 var uri = new Uri("/" + _assembly.GetName().Name + ";component/" + path.ToLowerInvariant(),
                                   UriKind.Relative);
                 dict.Source = uri;
@@ -60,6 +66,11 @@ namespace DynamicXaml.ResourcesSystem
                 Debug.WriteLine(path + " could not be loaded as Resource");
                 return Maybe<ResourceDictionary>.None;
             }
+        }
+
+        public IEnumerable<ResourceDictionary> GetDictionaries()
+        {
+            return GetResourceNames().Select(GetDictionary).Where(rd => rd.HasValue).Select(rd => rd.Value);
         }
 
         private IEnumerable<string> GetResourceNamesFresh()
