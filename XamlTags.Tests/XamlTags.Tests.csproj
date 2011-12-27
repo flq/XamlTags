@@ -61,6 +61,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BindingDirectly.cs" />
+    <Compile Include="AttachedPropertyUsage.cs" />
     <Compile Include="ResourcesUsage.cs" />
     <Compile Include="FactoryUsage.cs" />
     <Compile Include="ModelForBinding.cs" />
