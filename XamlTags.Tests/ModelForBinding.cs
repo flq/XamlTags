@@ -1,9 +1,21 @@
-﻿namespace XamlTags.Tests
+﻿using System;
+
+namespace XamlTags.Tests
 {
     public class ModelForBinding
     {
         public string Text { get; set; }
         public bool Visible { get { return false; } }
+    }
+
+    public class ModelForBindingRow
+    {
+        public int Row { get; private set; }
+
+        public ModelForBindingRow(int row)
+        {
+            Row = row;
+        }
     }
 
     public class ModelForBindingReadOnly

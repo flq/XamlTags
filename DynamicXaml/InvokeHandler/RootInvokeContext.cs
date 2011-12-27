@@ -75,10 +75,17 @@ namespace DynamicXaml
 
         public object GetValueForArgumentName(string key)
         {
+            // Unnamed values must appear in the beginning
+            var offset = Values.Length - _binder.CallInfo.ArgumentNames.Count;
             var index = _binder.CallInfo.ArgumentNames.IndexOf(key);
             if (index > -1)
-                return _args[index + 1]; // First is always assumed to be unnamed
+                return _args[index + offset]; // First is always assumed to be unnamed
             return null;
+        }
+
+        public bool IsArgumentNameSpecified(string name)
+        {
+            return _binder.CallInfo.ArgumentNames.IndexOf(name) != -1;
         }
 
         public void TransferRecordedActionsInto(IActionRecorder<T> actionRecorder)

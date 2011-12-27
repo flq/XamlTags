@@ -13,5 +13,6 @@ namespace DynamicXaml
         void AddSetterWith<T>(Action<T> directSetter);
         InvokeContext ExecuteChildContext(string name = null, object[] args=null);
         object GetValueForArgumentName(string name);
+        bool IsArgumentNameSpecified(string name);
     }
 }

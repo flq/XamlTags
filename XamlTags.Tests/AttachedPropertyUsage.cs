@@ -5,6 +5,7 @@ using FluentAssertions;
 
 namespace XamlTags.Tests
 {
+
     [TestFixture]
     public class AttachedPropertyUsage : XamlUsageContext<Image>
     {

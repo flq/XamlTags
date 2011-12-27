@@ -57,6 +57,7 @@
     <Compile Include="BasicUsage.cs" />
     <Compile Include="BindingOneWay.cs" />
     <Compile Include="BindingUsage.cs" />
+    <Compile Include="BoundAttachedPropertyUsage.cs" />
     <Compile Include="ConvertedValues.cs">
       <SubType>Code</SubType>
     </Compile>

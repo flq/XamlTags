@@ -53,6 +53,7 @@
     <Compile Include="InvokeHandler\AttachedPropertyHandler.cs" />
     <Compile Include="InvokeHandler\BindHandler.cs" />
     <Compile Include="InvokeHandler\InvokeContext.cs" />
+    <Compile Include="InvokeHandler\InvokeContextExtensions.cs" />
     <Compile Include="InvokeHandler\MultiCaseHandler.cs" />
     <Compile Include="InvokeHandler\NestedInvokeHandler.cs" />
     <Compile Include="InvokeHandler\RootInvokeContext.cs" />
