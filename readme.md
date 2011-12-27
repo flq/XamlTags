@@ -47,6 +47,8 @@ If you need __one-way binding__, just say so:
 
     // Binds to the read-only property Text on the DataContext
     builder.Start<TextBox>().IsEnabled(false).OneWayBindText("Text");
+    // Alternative syntax:
+    builder.Start<TextBox>().IsEnabled(false).BindText("Text", oneway:true);
     
 ### Nesting
 
@@ -59,6 +61,30 @@ Nesting works by providing certain __Func__ types to a property which in turn pr
     });
     builder.Start<Button>()
            .Content(X.N(b => b.Start<StackPanel>().Children(stackPanelContents)));
+
+### Referencing resources
+
+Even though using resources to fill properties is somewhat limited compared to XAML-Usage, support is available. You can provide the assemblies to the XamlBuilder which you want to be scanned for Resource Dictionaries. Objects form those dictionaries can be referenced by using the __Static__-prefix in the dynamic call:
+
+    _builder.GetResourcesFrom(typeof(App).Assembly);
+    _builder.Start<Button>().Content(X.N(b => b.Start<Rectangle>().WidthAndHeight(100d,100d).StaticFill("red")));
+    
+You can also add resources to a WPF-Object you build:
+
+    _builder.Start<Button>().AddResource("color", value);
+
+### Support of attached properties
+
+You can use attached properties within the DynamicXAML API with a call to __Attach__:
+
+    _builder.Start<Button>()
+        .Attach(Grid.RowProperty, 2)
+        .Attach(Grid.ColumnProperty, 3);
+
+If you want to bind an attached property to some value of the underlying DataContext, specify a __path__ as such:
+
+`_builder.Start<Button>().Attach(Grid.RowProperty, path:"Row")`
+
 
 Check out the tests as this project is _fully Test-driven_, so you can see which features are possible.
 
