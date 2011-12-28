@@ -89,6 +89,25 @@ If you want to bind an attached property to some value of the underlying DataCon
 
 Many WPF Elements (All __Panel__s, like StackPanel or Grid, all __ContentControl__s implement the __IAddChild__ interface, which allows to add childs to said element. You invoke this way of adding childs by using __Add__ on your dynamic object.
 
+All of the following syntax is supported:
+
+    // Adds a rectangle to button's Content-property:
+    _builder.Start<Button>().Add(new Rectangle());
+    // Adds the specified text to the Text-property:
+    _builder.Start<TextBlock>().Add("Hello Word");
+    // Translates to subsequent calls to Add:
+    _builder.Start<StackPanel>().Add(new Rectangle(), new Button())
+    // Also supports usages of nested. Single arguments that translate to several items are flattened:
+    _builder.Start<Button>().Add(X.N(b => b.Start<TextBlock>().Add("Hello"))).Create();
+    // or...
+    StackPanel sp = _builder.Start<StackPanel>()
+        .Add(X.NM(b => new Xaml[] {
+                    b.Start<TextBlock>().Add("Hello"),
+                    b.Start<Image>()
+                }))
+        .Create();
+
+
 Check out the tests as this project is _fully Test-driven_, so you can see which features are possible.
 
   [1]: http://htmltags.fubu-project.org/what-is-htmltags/

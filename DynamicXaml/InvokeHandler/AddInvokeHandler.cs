@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Markup;
 using DynamicXaml.Extensions;
+using System.Linq;
 
 namespace DynamicXaml
 {
@@ -15,14 +16,19 @@ namespace DynamicXaml
         {
             FailIfIAddChildIsMissing(ctx);
 
-            ctx.AddSetterWith<IAddChild>(ac =>
-                                             {
-                                                 var v = ctx.Values[0];
-                                                 if (v.CanBeCastTo<string>())
-                                                     ac.AddText((string)v);
-                                                 else
-                                                     ac.AddChild(v);
-                                             });
+            var values = ctx.Values.Select(v => ctx.NormalizeToBuiltXaml(c => v).MustHaveValue()).Flatten();
+
+            foreach (var value in values)
+            {
+                var v = value;
+                ctx.AddSetterWith<IAddChild>(ac =>
+                                                 {
+                                                     if (v.CanBeCastTo<string>())
+                                                         ac.AddText((string) v);
+                                                     else
+                                                         ac.AddChild(v);
+                                                 });
+            }
         }
 
         private static void FailIfIAddChildIsMissing(InvokeContext ctx)

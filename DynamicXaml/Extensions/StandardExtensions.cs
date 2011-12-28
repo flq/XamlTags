@@ -10,5 +10,19 @@ namespace DynamicXaml.Extensions
             foreach (var i in items)
                 action(i);
         }
+
+        public static IEnumerable<object> Flatten(this IEnumerable<object> enumerable)
+        {
+            foreach(var thing in enumerable)
+            {
+                if (thing.CanBeCastTo<IEnumerable<object>>())
+                {
+                    foreach (var innerThing in ((IEnumerable<object>)thing).Flatten())
+                        yield return innerThing;
+                }
+                else
+                    yield return thing;
+            }
+        }
     }
 }
