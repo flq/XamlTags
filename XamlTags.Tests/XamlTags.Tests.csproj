@@ -54,6 +54,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddUsage.cs" />
     <Compile Include="BasicUsage.cs" />
     <Compile Include="BindingOneWay.cs" />
     <Compile Include="BindingUsage.cs" />

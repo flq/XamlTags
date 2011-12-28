@@ -15,5 +15,10 @@ namespace DynamicXaml.Extensions
         {
             return starters.Any(str.StartsWith);
         }
+
+        public static bool InvariantEquals(this string s, string other)
+        {
+            return s.Equals(other, StringComparison.InvariantCultureIgnoreCase);
+        }
     }
 }

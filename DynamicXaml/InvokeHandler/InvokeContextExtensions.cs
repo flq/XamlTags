@@ -1,4 +1,7 @@
+using System;
+using System.Linq;
 using System.Windows;
+using DynamicXaml.Extensions;
 
 namespace DynamicXaml
 {
@@ -18,6 +21,22 @@ namespace DynamicXaml
                 bc.Add("oneway", (bool)value);
 
             return bc;
+        }
+
+        public static Maybe<object[]> NormalizeToBuiltXaml(this InvokeContext ctx, Func<InvokeContext,object> rootObjectSelector)
+        {
+            var value = rootObjectSelector(ctx);
+
+            return value.Maybe(
+                v => v.Cast<object[]>(),
+                v => v.Cast<Func<XamlBuilder, Xaml>>()
+                      .Get(func => func(ctx.Builder).Create())
+                      .Get(obj => new[] { obj }),
+                v => v.Cast<Func<XamlBuilder, Xaml[]>>()
+                      .Get(func => func(ctx.Builder))
+                      .Get(xamls => xamls.Select(x => x.Create()).ToArray()),
+                v => v.Get(obj => new [] { obj })
+            );
         }
     }
 }

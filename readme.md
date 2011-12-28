@@ -85,6 +85,9 @@ If you want to bind an attached property to some value of the underlying DataCon
 
 `_builder.Start<Button>().Attach(Grid.RowProperty, path:"Row")`
 
+### Support of "Add"
+
+Many WPF Elements (All __Panel__s, like StackPanel or Grid, all __ContentControl__s implement the __IAddChild__ interface, which allows to add childs to said element. You invoke this way of adding childs by using __Add__ on your dynamic object.
 
 Check out the tests as this project is _fully Test-driven_, so you can see which features are possible.
 

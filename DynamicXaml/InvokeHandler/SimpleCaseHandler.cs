@@ -17,7 +17,8 @@ namespace DynamicXaml
         {
             var propertyName = ctx.Name;
             var propertyType = ctx.XamlType.GetPropertyType(propertyName);
-            ctx.AddSetterWith(new SetterContext(propertyName, propertyType, ctx.Values[0]));
+            var values = ctx.NormalizeToBuiltXaml(c => c.Values[0]).MustHaveValue();
+            ctx.AddSetterWith(new SetterContext(propertyName, propertyType, values.Length > 1 ? values : values[0]));
         }
     }
 }
