@@ -45,25 +45,36 @@ namespace DynamicXaml.Extensions
             return @object.Value;
         }
 
+        /// <summary>
+        /// Use this for a soft descend from Maybe where the provided defaultValue is used when the maybe has no value
+        /// </summary>
+        public static T MustHaveValue<T>(this Maybe<T> @object, T defaultValue) where T : class
+        {
+            return !@object ? defaultValue : @object.Value;
+        }
+
         public static Maybe<T> Do<T>(this Maybe<T> value, Action<T> action)
         {
-            if (value.HasValue)
+            if (value)
                 action(value.Value);
             return value;
         }
 
         public static Maybe<U> Get<T,U>(this Maybe<T> value, Func<T,U> map)
         {
-            if (value.HasValue)
-                return new Maybe<U>(map(value.Value));
-            return Maybe<U>.None;
+            return value ? new Maybe<U>(map(value.Value)) : Maybe<U>.None;
         }
 
         public static Maybe<U> Get<T, U>(this Maybe<T> value, Func<T, Maybe<U>> map)
         {
-            if (value.HasValue)
-                return map(value.Value);
-            return Maybe<U>.None;
+            return value ? map(value.Value) : Maybe<U>.None;
+        }
+
+        public static Maybe<U> Get<T,U>(this IDictionary<T,U> dictionary, T key)
+        {
+            U value;
+            var success = dictionary.TryGetValue(key, out value);
+            return new Maybe<U>(value, success);
         }
 
         public static Maybe<T> Cast<T>(this Maybe maybeValue)

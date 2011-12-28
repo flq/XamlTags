@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DynamicXaml
 {
-    internal class RootInvokeContext<T> : InvokeContext, IActionRecorder<T>
+    internal class RootInvokeContext<T> : InvokeContext, ActionRecorder<T>
     {
         private readonly InvokeMemberBinder _binder;
         private readonly object[] _args;
@@ -88,7 +88,7 @@ namespace DynamicXaml
             return _binder.CallInfo.ArgumentNames.IndexOf(name) != -1;
         }
 
-        public void TransferRecordedActionsInto(IActionRecorder<T> actionRecorder)
+        public void TransferRecordedActionsInto(ActionRecorder<T> actionRecorder)
         {
             _invokeMemberHandler.MaybeFirst(h => h.CanHandle(this)).Do(h => h.Handle(this));
             _recordedActions.ForEach(actionRecorder.Add);
@@ -101,7 +101,7 @@ namespace DynamicXaml
             _recordedActions.Clear();
         }
 
-        void IActionRecorder<T>.Add(Action<T> action)
+        void ActionRecorder<T>.Add(Action<T> action)
         {
             _recordedActions.Add(action);
         }

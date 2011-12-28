@@ -5,7 +5,7 @@ using DynamicXaml.Extensions;
 
 namespace DynamicXaml
 {
-    public class CreationModel<T> : IActionRecorder<T>
+    public class CreationModel<T> : ActionRecorder<T>
     {
         private readonly List<Action<T>> _actions = new List<Action<T>>();
 
@@ -27,7 +27,7 @@ namespace DynamicXaml
             return @object;
         }
 
-        void IActionRecorder<T>.Add(Action<T> action)
+        void ActionRecorder<T>.Add(Action<T> action)
         {
             AddSetter(action);
         }

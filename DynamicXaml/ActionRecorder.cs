@@ -2,7 +2,7 @@
 
 namespace DynamicXaml
 {
-    internal interface IActionRecorder<T>
+    internal interface ActionRecorder<T>
     {
         void Add(Action<T> action);
     }
