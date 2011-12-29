@@ -3,12 +3,26 @@ using System.Collections.Generic;
 
 namespace DynamicXaml.Extensions
 {
-    public static class StandardExtensions
+    public static class EnumerableExtensions
     {
         public static void ForEach<T>(this IEnumerable<T> items, Action<T> action)
         {
             foreach (var i in items)
                 action(i);
+        }
+
+        public static void Execute<T>(this IEnumerable<T> items)
+        {
+            items.ForEach(i => {});
+        }
+
+        public static IEnumerable<T> Pipeline<T>(this IEnumerable<T> items, Action<T> action)
+        {
+            foreach (var i in items)
+            {
+                action(i);
+                yield return i;
+            }
         }
 
         public static IEnumerable<object> Flatten(this IEnumerable<object> enumerable)

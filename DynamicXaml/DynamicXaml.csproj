@@ -46,7 +46,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\Maybe.cs" />
     <Compile Include="Extensions\MaybeExtensions.cs" />
-    <Compile Include="Extensions\StandardExtensions.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="ActionRecorder.cs" />
     <Compile Include="InvokeHandler\AddInvokeHandler.cs" />

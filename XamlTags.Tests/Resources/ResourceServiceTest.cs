@@ -42,7 +42,7 @@ namespace XamlTags.Tests.Resources
         public void find_all_data_templates()
         {
             var dt = _resourceService.Where(kv => kv.Value is DataTemplate).ToList();
-            dt.Should().HaveCount(3);
+            dt.Should().HaveCount(4);
         }
     }
 }

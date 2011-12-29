@@ -24,6 +24,10 @@ namespace XamlTags.Tests.Resources
 
         [Test]
         [TestCase(typeof(Person), "person")]
+        [TestCase(typeof(Employee), "employee")]
+        [TestCase(typeof(Slave), "person")]
+        [TestCase(typeof(Boss), "employee")]
+        [TestCase(typeof(ILifeform), "lifeform")]
         public void template_is_found_based_on_type(Type modelType, object key)
         {
             var dt = _svc.GetForObject(modelType);

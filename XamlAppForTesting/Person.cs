@@ -1,5 +1,10 @@
 namespace XamlAppForTesting
 {
+
+    public interface ILifeform
+    {
+        
+    }
     
     public class Person
     {
@@ -11,7 +16,7 @@ namespace XamlAppForTesting
         
     }
 
-    public class Slave : Person
+    public class Slave : Person, ILifeform
     {
         
     }

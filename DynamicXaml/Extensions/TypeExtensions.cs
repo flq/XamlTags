@@ -54,7 +54,12 @@ namespace DynamicXaml.Extensions
 
         public static bool CanBeCastTo<T>(this Type t)
         {
-            return typeof(T).IsAssignableFrom(t);
+            return t.CanBeCastTo(typeof(T));
+        }
+
+        public static bool CanBeCastTo(this Type t, Type other)
+        {
+            return other.IsAssignableFrom(t);
         }
 
         public static Maybe<TypeConverterAttribute> MayHaveConverter(this Type type)
