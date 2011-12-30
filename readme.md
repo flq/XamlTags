@@ -62,17 +62,6 @@ Nesting works by providing certain __Func__ types to a property which in turn pr
     builder.Start<Button>()
            .Content(X.N(b => b.Start<StackPanel>().Children(stackPanelContents)));
 
-### Referencing resources
-
-Even though using resources to fill properties is somewhat limited compared to XAML-Usage, support is available. You can provide the assemblies to the XamlBuilder which you want to be scanned for Resource Dictionaries. Objects form those dictionaries can be referenced by using the __Static__-prefix in the dynamic call:
-
-    _builder.GetResourcesFrom(typeof(App).Assembly);
-    _builder.Start<Button>().Content(X.N(b => b.Start<Rectangle>().WidthAndHeight(100d,100d).StaticFill("red")));
-    
-You can also add resources to a WPF-Object you build:
-
-    _builder.Start<Button>().AddResource("color", value);
-
 ### Support of attached properties
 
 You can use attached properties within the DynamicXAML API with a call to __Attach__:
@@ -107,7 +96,54 @@ All of the following syntax is supported:
                 }))
         .Create();
 
+### Referencing resources
 
-Check out the tests as this project is _fully Test-driven_, so you can see which features are possible.
+Even though using resources to fill properties is somewhat limited compared to XAML-Usage, support is available. You can provide the assemblies to the XamlBuilder which you want to be scanned for Resource Dictionaries. Objects form those dictionaries can be referenced by using the __Static__-prefix in the dynamic call:
+
+    _builder.GetResourcesFrom(typeof(App).Assembly);
+    _builder.Start<Button>().Content(X.N(b => b.Start<Rectangle>().WidthAndHeight(100d,100d).StaticFill("red")));
+    
+You can also add resources to a WPF-Object you build:
+
+    _builder.Start<Button>().AddResource("color", value);
+
+### Data-Template support for code
+
+DynamicXaml provides you with a lookup system on DataTemplates that works __polymorphic__:
+
+    var svc = new DataTemplateService(new ResourceService(new ResourceLoader(SomeAssembly));
+    svc.GetForObject<Employee>();
+
+If you have a DataTemplate for Person and Employee inherits from Person, then you have yourself a working DataTemplate.
+Some goes for interfaces, where interfaces take precedence over inheritance trees.
+
+### Goodies for your markup
+
+__DynamicXaml__ comes with some goodies directed at your markup:
+
+* __DataTemplateChoice__: I have once [written about this][2] on my blog. It is basically a _DataTemplateSelector_ which can be defined purely in XAML
+* __ViewModelStyleChoice__: Similar as the above, it is a _StyleSelector_ that works in XAML and allows you to select styles based on the underlying DataContext type.
+* QuickGrid: 
+
+Tired of hand-writing Row and Columndefinitions? Then QuickGrid is for you:
+
+    <Grid dx:QuickGrid.With="2*,3x*|2x*,20">
+      <Rectangle Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Red" />
+    </Grid>;
+
+
+This sets up the grid with
+
+* Rows
+   * 1 two-star 
+   * 3 one-star
+* Columns
+   * 2 one-star 
+   * 1 20 pixel. 
+
+While the column/row bounds ain't visible in the designer, the items are seen corectly placed. You'll love it!
+
+Also, check out the tests as this project is _fully Test-driven_, so you can see which features are possible.
 
   [1]: http://htmltags.fubu-project.org/what-is-htmltags/
+  [2]: http://realfiction.net/go/198
