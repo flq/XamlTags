@@ -1,8 +1,7 @@
 ﻿<Window x:Class="XamlAppForTesting.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:dx="clr-namespace:DynamicXaml.MarkupSystem;assembly=DynamicXaml" Title="MainWindow" Height="350" Width="525">
+    <Grid dx:QuickGrid.With="2*,3x*|2x*,20">
+        <Rectangle Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Red" />
     </Grid>
 </Window>

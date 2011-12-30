@@ -137,6 +137,12 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DynamicXaml\DynamicXaml.csproj">
+      <Project>{B33ADAD1-A9D6-4700-8BBE-52243FB1C54E}</Project>
+      <Name>DynamicXaml</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
