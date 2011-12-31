@@ -64,6 +64,7 @@
     </Compile>
     <Compile Include="BindingDirectly.cs" />
     <Compile Include="AttachedPropertyUsage.cs" />
+    <Compile Include="MaybeTests.cs" />
     <Compile Include="QuickGridTests.cs" />
     <Compile Include="ResourcesUsage.cs" />
     <Compile Include="FactoryUsage.cs" />

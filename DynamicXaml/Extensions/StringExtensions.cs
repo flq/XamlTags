@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DynamicXaml.Extensions
@@ -19,6 +18,14 @@ namespace DynamicXaml.Extensions
         public static bool InvariantEquals(this string s, string other)
         {
             return s.Equals(other, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public static Maybe<int> GetInt(this string s)
+        {
+            int value;
+            if (int.TryParse(s, out value))
+                return new Maybe<int>(value);
+            return Maybe<int>.None;
         }
     }
 }

@@ -73,10 +73,7 @@ namespace DynamicXaml.ResourcesSystem
 
         public Maybe<DataTemplate> FindForType(Type type)
         {
-            var value = _interfaceTemplates.Get(type);
-            if (value.HasValue)
-                return value;
-            return _root.FindFor(type);
+            return _interfaceTemplates.Get(type).Or(_root.FindFor(type));
         }
     }
 

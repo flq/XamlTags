@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DynamicXaml.Extensions
+﻿namespace DynamicXaml.Extensions
 {
     public interface Maybe
     {
@@ -8,30 +6,29 @@ namespace DynamicXaml.Extensions
         object Value { get; }
     }
 
-    public class Maybe<T> : Maybe
+    public struct Maybe<T> : Maybe
     {
         private readonly T _o;
-        private readonly bool? _hasValue;
+        private readonly bool _hasValue;
 
-        public Maybe() : this(default(T), false) { }
-        public Maybe(T o) : this(o, null) { }
+        public Maybe(T o) : this(o, DetermineIfHasValue(o)) { }
 
         /// <summary>
         /// Use this to ensure on value types that the maybe acts correctly
         /// </summary>
-        public Maybe(T o, bool? hasValue)
+        public Maybe(T o, bool hasValue)
         {
             _o = o;
             _hasValue = hasValue;
         }
 
-        private static readonly Lazy<Maybe<T>> _none = new Lazy<Maybe<T>>(()=> new Maybe<T>());
         public static Maybe<T> None
         {
-            get { return _none.Value;}
+            get { return new Maybe<T>();}
         }
 
-        public bool HasValue { get { return _hasValue.HasValue ? _hasValue.Value :  _o != null; } }
+        public bool HasValue { get { return _hasValue; } }
+
         public T Value { get { return _o; } }
 
         object Maybe.Value
@@ -42,6 +39,11 @@ namespace DynamicXaml.Extensions
         public static implicit operator bool(Maybe<T> maybeValue)
         {
             return maybeValue.HasValue;
+        }
+
+        private static bool DetermineIfHasValue(T t)
+        {
+            return !Equals(default(T), t);
         }
     }
 }

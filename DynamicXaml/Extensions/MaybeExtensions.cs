@@ -6,6 +6,36 @@ namespace DynamicXaml.Extensions
 {
     public static class MaybeExtensions
     {
+        public static Maybe<T> ToMaybe<T>(this T @object) where T : class
+        {
+            return new Maybe<T>(@object, @object != null);
+        }
+
+        public static Maybe<T> ToMaybe<T>(this T? @object) where T : struct
+        {
+            return @object.HasValue ? new Maybe<T>(@object.Value) : Maybe<T>.None;
+        }
+
+        public static T MustHaveValue<T>(this Maybe<T> @object, T defaultValue) where T : class
+        {
+            return !@object ? defaultValue : @object.Value;
+        }
+
+        public static T MustHaveValue<T>(this Maybe<T> @object, Exception raiseIfNoValue = null) where T : class
+        {
+            if (!@object.HasValue)
+                throw raiseIfNoValue ?? new InvalidOperationException("Maybe<{0}> has no value and hence a value is not obtainable".Fmt(typeof(T).Name));
+            return @object.Value;
+        }
+
+        public static Maybe<Z> Maybe<T,Z>(this T @object, params Func<Maybe<T>,Maybe<Z>>[] maybes) where T : class where Z : class
+        {
+            var v = new Maybe<T>(@object);
+            return maybes.Select(maybe => maybe(v)).FirstOrDefault(maybeZ => maybeZ.HasValue);
+        }
+
+        // On collections...
+
         public static Maybe<T> MaybeFirst<T>(this IEnumerable<T> items, Func<T,bool> predicate) where T : class
         {
             return items.FirstOrDefault(predicate).ToMaybe();
@@ -18,40 +48,17 @@ namespace DynamicXaml.Extensions
 
         public static Maybe<T> MaybeFirst<T>(this IEnumerable<Maybe<T>> items) where T : class
         {
-            return items.FirstOrDefault(i => i.HasValue) ?? Maybe<T>.None;
+            return items.FirstOrDefault(i => i.HasValue); // ?? Maybe<T>.None;
         }
 
-        public static Maybe<T> ToMaybe<T>(this T @object) where T : class
+        public static Maybe<U> Get<T,U>(this IDictionary<T,U> dictionary, T key)
         {
-            return new Maybe<T>(@object);
+            U value;
+            var success = dictionary.TryGetValue(key, out value);
+            return new Maybe<U>(value, success);
         }
 
-        public static Maybe<T> ToMaybe<T>(this T? @object) where T : struct
-        {
-            return @object.HasValue ? new Maybe<T>(@object.Value) : Maybe<T>.None;
-        }
-
-        public static Maybe<Z> Maybe<T,Z>(this T @object, params Func<Maybe<T>,Maybe<Z>>[] maybes) where T : class where Z : class
-        {
-            var v = new Maybe<T>(@object);
-            var ret = maybes.Select(maybe => maybe(v)).FirstOrDefault(maybeZ => maybeZ.HasValue);
-            return ret ?? Maybe<Z>.None;
-        }
-
-        public static T MustHaveValue<T>(this Maybe<T> @object, Exception raiseIfNoValue = null) where T : class
-        {
-            if (!@object.HasValue)
-                throw raiseIfNoValue ?? new InvalidOperationException("Maybe<{0}> has no value and hence a value is not obtainable".Fmt(typeof(T).Name));
-            return @object.Value;
-        }
-
-        /// <summary>
-        /// Use this for a soft descend from Maybe where the provided defaultValue is used when the maybe has no value
-        /// </summary>
-        public static T MustHaveValue<T>(this Maybe<T> @object, T defaultValue) where T : class
-        {
-            return !@object ? defaultValue : @object.Value;
-        }
+        // Bind, etc. ...
 
         public static Maybe<T> Do<T>(this Maybe<T> value, Action<T> action)
         {
@@ -70,11 +77,11 @@ namespace DynamicXaml.Extensions
             return value ? map(value.Value) : Maybe<U>.None;
         }
 
-        public static Maybe<U> Get<T,U>(this IDictionary<T,U> dictionary, T key)
+        public static Maybe<T> Or<T>(this Maybe<T> value, Maybe<T> orValue)
         {
-            U value;
-            var success = dictionary.TryGetValue(key, out value);
-            return new Maybe<U>(value, success);
+            if (value.HasValue)
+                return value;
+            return orValue;
         }
 
         public static Maybe<T> Cast<T>(this Maybe maybeValue)
