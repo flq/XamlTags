@@ -6,7 +6,7 @@
     <authors>Frank Quednau</authors>
     <owners>Frank Quednau</owners>
     <description>Fluent dynamic API for creating XAML Object trees, inspired by the fubu project HtmlTags</description>
-    <releaseNotes>Support of IAddChild with multiple syntax support (see readme on project site)</releaseNotes>
+    <releaseNotes>Addition of a string to ImageSource-Converter, DictionaryConverter and RelayCommand into Markupsystem</releaseNotes>
     <projectUrl>https://github.com/flq/XamlTags</projectUrl>
     <licenseUrl>http://www.opensource.org/licenses/apache2.0</licenseUrl>
     <iconUrl>http://realfiction.net/files/dynamicxaml.png</iconUrl>

@@ -16,7 +16,7 @@ namespace DynamicXaml
         {
             FailIfIAddChildIsMissing(ctx);
 
-            var values = ctx.Values.Select(v => ctx.NormalizeToBuiltXaml(c => v).MustHaveValue()).Flatten();
+            var values = ctx.Values.Select(v => ctx.NormalizeToBuiltXaml(_ => v).MustHaveValue()).Flatten();
 
             foreach (var value in values)
             {

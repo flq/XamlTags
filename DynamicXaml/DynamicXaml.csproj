@@ -62,8 +62,11 @@
     <Compile Include="IXamlFactory.cs" />
     <Compile Include="MarkupSystem\DataTemplateChoice.cs" />
     <Compile Include="MarkupSystem\DataTemplates.cs" />
+    <Compile Include="MarkupSystem\DictionaryConverter.cs" />
+    <Compile Include="MarkupSystem\PathToImageSourceConverter.cs" />
     <Compile Include="MarkupSystem\QuickGrid.cs" />
     <Compile Include="MarkupSystem\QuickGrid.GridLengthBuilder.cs" />
+    <Compile Include="MarkupSystem\RelayCommand.cs" />
     <Compile Include="MarkupSystem\ViewModelStyleChoice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourcesSystem\CompositeResourceLoader.cs" />

@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace DynamicXaml.Extensions
 {
-    internal static class TypeExtensions
+    public static class TypeExtensions
     {
         public static Type GetPropertyType(this Type t, string propertyName)
         {
@@ -26,6 +26,7 @@ namespace DynamicXaml.Extensions
             return field != null ? ((DependencyProperty)field.GetValue(null)).ToMaybe() : Maybe<DependencyProperty>.None;
         }
 
+        
         public static void SetValue(this object o, string propertyName, object value)
         {
             o.GetType().GetProperty(propertyName).SetValue(o, value,null);
