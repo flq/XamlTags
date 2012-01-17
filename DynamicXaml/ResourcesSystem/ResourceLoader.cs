@@ -54,6 +54,7 @@ namespace DynamicXaml.ResourcesSystem
                 // if it is running, we return the resources of the already running app.
                 if (path.ToLowerInvariant().StartsWith("app") && Application.Current != null)
                 {
+                    //TODO: Any other dictionary starting with app gets pissed on, fool!
                     return Application.Current.Resources.ToMaybe();
                 }
                 var uri = new Uri("/" + _assembly.GetName().Name + ";component/" + path.ToLowerInvariant(),
@@ -78,10 +79,15 @@ namespace DynamicXaml.ResourcesSystem
             var asm = _assembly;
             var resName = asm.GetName().Name + ".g.resources";
             using (var stream = asm.GetManifestResourceStream(resName))
-            using (var reader = new System.Resources.ResourceReader(stream))
             {
-                return reader.Cast<DictionaryEntry>().Select(entry => ((string)entry.Key).Replace(".baml", "") + ".xaml").ToArray();
+                if (stream == null)
+                    return Enumerable.Empty<string>();
+                using (var reader = new System.Resources.ResourceReader(stream))
+                {
+                    return reader.Cast<DictionaryEntry>().Select(entry => ((string)entry.Key).Replace(".baml", "") + ".xaml").ToArray();
+                }
             }
+            
         }
     }
 }
