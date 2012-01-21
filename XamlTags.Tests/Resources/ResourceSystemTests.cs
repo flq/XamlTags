@@ -1,8 +1,10 @@
+using System;
 using System.Windows;
 using NUnit.Framework;
 using System.Linq;
 using FluentAssertions;
 using DynamicXaml.Extensions;
+using XamlAppForTesting;
 
 namespace XamlTags.Tests.Resources
 {
@@ -13,14 +15,32 @@ namespace XamlTags.Tests.Resources
         public void finds_all_known_resources()
         {
             var names = _resourceLoader.GetResourceNames().ToList();
-            names.Should().HaveCount(5);
+            names.Should().HaveCount(3);
         }
 
         [Test]
         public void loader_provides_all_known_dictionaries()
         {
             var rds = _resourceLoader.GetDictionaries();
-            rds.Should().HaveCount(4);
+            rds.Should().HaveCount(3);
+        }
+
+        [Test]
+        public void resourceloader_does_not_instantiate_a_window()
+        {
+            MainWindow.BlowUpOnConstruction = true;
+            try
+            {
+                var rds = _resourceLoader.GetDictionaries().ToList();
+            }
+            catch (Exception)
+            {
+                Assert.Fail("The loader instantiated the window");
+            }
+            finally
+            {
+                MainWindow.BlowUpOnConstruction = false;
+            }
         }
 
         [Test]

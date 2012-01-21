@@ -69,6 +69,8 @@
     <Compile Include="MarkupSystem\RelayCommand.cs" />
     <Compile Include="MarkupSystem\ViewModelStyleChoice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourcesSystem\BamlBinaryReader.cs" />
+    <Compile Include="ResourcesSystem\BamlRootElementCheck.cs" />
     <Compile Include="ResourcesSystem\CompositeResourceLoader.cs" />
     <Compile Include="ResourcesSystem\DataTemplateService.cs" />
     <Compile Include="ResourcesSystem\IResourceLoader.cs" />

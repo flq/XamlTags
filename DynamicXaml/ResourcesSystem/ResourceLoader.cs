@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -21,7 +22,7 @@ namespace DynamicXaml.ResourcesSystem
         public ResourceLoader(Assembly assembly)
         {
             _assembly = assembly;
-            _resourcenames = new Lazy<IEnumerable<string>>(GetResourceNamesFresh);
+            _resourcenames = new Lazy<IEnumerable<string>>(()=>GetRawResourceNames().ToArray());
         }
 
         public bool HandlesAssembly(string assemblyName)
@@ -34,7 +35,7 @@ namespace DynamicXaml.ResourcesSystem
         /// </summary>
         public IEnumerable<string> GetResourceNames()
         {
-            return _resourcenames.Value;
+            return _resourcenames.Value.Select(ConvertToXaml);
         }
 
         public Maybe<ResourceDictionary> GetDictionary(string path)
@@ -50,13 +51,6 @@ namespace DynamicXaml.ResourcesSystem
             try
             {
                 var dict = new ResourceDictionary();
-                // if the resource dictionary is the app.xaml, an exception occurs if an application is already running
-                // if it is running, we return the resources of the already running app.
-                if (path.ToLowerInvariant().StartsWith("app") && Application.Current != null)
-                {
-                    //TODO: Any other dictionary starting with app gets pissed on, fool!
-                    return Application.Current.Resources.ToMaybe();
-                }
                 var uri = new Uri("/" + _assembly.GetName().Name + ";component/" + path.ToLowerInvariant(),
                                   UriKind.Relative);
                 dict.Source = uri;
@@ -74,20 +68,33 @@ namespace DynamicXaml.ResourcesSystem
             return GetResourceNames().Select(GetDictionary).Where(rd => rd.HasValue).Select(rd => rd.Value);
         }
 
-        private IEnumerable<string> GetResourceNamesFresh()
+        private IEnumerable<string> GetRawResourceNames()
         {
             var asm = _assembly;
             var resName = asm.GetName().Name + ".g.resources";
             using (var stream = asm.GetManifestResourceStream(resName))
             {
                 if (stream == null)
-                    return Enumerable.Empty<string>();
+                    yield break;
+
                 using (var reader = new System.Resources.ResourceReader(stream))
                 {
-                    return reader.Cast<DictionaryEntry>().Select(entry => ((string)entry.Key).Replace(".baml", "") + ".xaml").ToArray();
+                    foreach (DictionaryEntry entry in reader)
+                    {
+                        var rawResourceName = (string) entry.Key;
+                        var binReader = new BamlBinaryReader((Stream) entry.Value);
+                        var r = new BamlRootElementCheck(binReader);
+                        var element = r.RootElement();
+                        if (element == "ResourceDictionary")
+                          yield return rawResourceName;
+                    }
                 }
             }
-            
+        }
+
+        private static string ConvertToXaml(string bamlResource)
+        {
+            return bamlResource.Replace(".baml", "") + ".xaml";
         }
     }
 }
