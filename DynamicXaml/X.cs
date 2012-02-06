@@ -18,5 +18,21 @@ namespace DynamicXaml
         {
             return map;
         }
+
+        /// <summary>
+        /// Many-Nested builder for self-assignment
+        /// </summary>
+        public static Func<Func<XamlBuilder, Xaml[]>, Func<XamlBuilder, Xaml[]>> NestedMany
+        {
+            get { return f => f; }
+        }
+
+        /// <summary>
+        /// Nested builder for self-assignment
+        /// </summary>
+        public static Func<Func<XamlBuilder, Xaml>, Func<XamlBuilder, Xaml>> Nested
+        {
+            get { return f => f; }
+        }
     }
 }

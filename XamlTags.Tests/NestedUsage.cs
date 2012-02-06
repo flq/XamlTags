@@ -11,7 +11,9 @@ namespace XamlTags.Tests
         [Test]
         public void provided_nested_turns_up_in_object()
         {
-            _xaml.Content(X.N(b => b.Start<Image>().Width(123d)));
+            var nested = X.Nested;
+
+            _xaml.Content(nested(b => b.Start<Image>().Width(123d)));
 
             Object.Content.Should().BeAssignableTo<Image>();
             var img = (Image)Object.Content;
@@ -21,7 +23,9 @@ namespace XamlTags.Tests
         [Test]
         public void button_image_and_text()
         {
-            var stackPanelContents = X.NM(b => new Xaml[]
+            var nested = X.NestedMany;
+
+            var stackPanelContents = nested(b => new Xaml[]
                                                  {
                                                      b.Start<Image>().Width(124d),
                                                      b.Start<TextBlock>().Text("Hello")
