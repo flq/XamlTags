@@ -45,5 +45,12 @@
         {
             return !Equals(default(T), t);
         }
+
+        public override string ToString()
+        {
+            if (!HasValue)
+                return "Maybe<{0}>.None".Fmt(typeof(T).Name);
+            return "Maybe<{0}>".Fmt(Value);
+        }
     }
 }

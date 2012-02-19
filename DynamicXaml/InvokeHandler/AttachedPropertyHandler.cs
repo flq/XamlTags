@@ -14,7 +14,7 @@ namespace DynamicXaml
         public void Handle(InvokeContext ctx)
         {
             GuardAgainstSignatureFailures(ctx);
-            var attachProp = ctx.Values[0].Cast<DependencyProperty>();
+            var attachProp = (DependencyProperty)ctx.Values[0];
 
             if (ctx.IsArgumentNameSpecified("path"))
                 ctx.AddSetterWith(ctx.NewBindSetterContext(attachProp));

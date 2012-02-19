@@ -16,12 +16,12 @@ namespace DynamicXaml.Extensions
             return @object.HasValue ? new Maybe<T>(@object.Value) : Maybe<T>.None;
         }
 
-        public static T MustHaveValue<T>(this Maybe<T> @object, T defaultValue) where T : class
+        public static T MustHaveValue<T>(this Maybe<T> @object, T defaultValue)
         {
             return !@object ? defaultValue : @object.Value;
         }
 
-        public static T MustHaveValue<T>(this Maybe<T> @object, Exception raiseIfNoValue = null) where T : class
+        public static T MustHaveValue<T>(this Maybe<T> @object, Exception raiseIfNoValue = null)
         {
             if (!@object.HasValue)
                 throw raiseIfNoValue ?? new InvalidOperationException("Maybe<{0}> has no value and hence a value is not obtainable".Fmt(typeof(T).Name));
@@ -82,6 +82,15 @@ namespace DynamicXaml.Extensions
             if (value.HasValue)
                 return value;
             return orValue;
+        }
+
+        public static Maybe<T> ToMaybeOf<T>(this object value)
+        {
+            if (ReferenceEquals(value, null))
+                return Maybe<T>.None;
+            if (value.CanBeCastTo<T>())
+                return new Maybe<T>((T)value);
+            return Maybe<T>.None;
         }
 
         public static Maybe<T> Cast<T>(this Maybe maybeValue)

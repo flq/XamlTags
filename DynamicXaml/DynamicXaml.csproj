@@ -91,7 +91,9 @@
     <Compile Include="XamlBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DynamicXaml.nuspec" />
+    <None Include="DynamicXaml.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
