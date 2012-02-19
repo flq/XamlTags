@@ -14,7 +14,6 @@ namespace DynamicXaml
         public XamlBuilder()
         {
             _knownInvokeMemberHandlers.Add(new MultiCaseHandler());
-            //_knownInvokeMemberHandlers.Add(new NestedInvokeHandler());
             _knownInvokeMemberHandlers.Add(new BindHandler());
             _knownInvokeMemberHandlers.Add(new AddResourceHandler());
             _knownInvokeMemberHandlers.Add(new StaticResourceHandler());
@@ -23,7 +22,7 @@ namespace DynamicXaml
             _knownInvokeMemberHandlers.Add(new SimpleCaseHandler());
         }
 
-        internal ResourceService ResourceService
+        public ResourceService ResourceService
         {
             get { return _resourceService; }
         }
@@ -52,6 +51,11 @@ namespace DynamicXaml
         {
             var l = new CompositeResourceLoader(assembly);
             _resourceService = new ResourceService(l);
+        }
+
+        public void GetResourcesFrom(ResourceService resourceService)
+        {
+            _resourceService = resourceService;
         }
     }
 }

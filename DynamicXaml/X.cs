@@ -1,6 +1,9 @@
 using System;
 namespace DynamicXaml
 {
+    /// <summary>
+    /// Helper to introduce Funcs supported by the dynamic API to nest DynamicXAML calls
+    /// </summary>
     public class X
     {
         /// <summary>

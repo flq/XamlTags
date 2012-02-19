@@ -76,6 +76,7 @@
     <Compile Include="Resources\ResourceSystemTestContext.cs" />
     <Compile Include="Resources\ResourceSystemTests.cs" />
     <Compile Include="XamlUsageContext.cs" />
+    <Compile Include="XamlWriterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DynamicXaml\DynamicXaml.csproj">

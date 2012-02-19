@@ -6,7 +6,7 @@
     <authors>Frank Quednau</authors>
     <owners>Frank Quednau</owners>
     <description>Fluent dynamic API for creating XAML Object trees, inspired by the fubu project HtmlTags</description>
-    <releaseNotes>Change: Resource Loader system will only load ResourceDictionaries and nothing else</releaseNotes>
+    <releaseNotes>Minor API Changes, Addition of XamlWriter that actually does help in writing XAML</releaseNotes>
     <projectUrl>https://github.com/flq/XamlTags</projectUrl>
     <licenseUrl>http://www.opensource.org/licenses/apache2.0</licenseUrl>
     <iconUrl>http://realfiction.net/files/dynamicxaml.png</iconUrl>
