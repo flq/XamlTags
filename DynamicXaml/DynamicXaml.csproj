@@ -63,6 +63,7 @@
     <Compile Include="MarkupSystem\DataTemplateChoice.cs" />
     <Compile Include="MarkupSystem\DataTemplates.cs" />
     <Compile Include="MarkupSystem\DictionaryConverter.cs" />
+    <Compile Include="MarkupSystem\FocusBehavior.cs" />
     <Compile Include="MarkupSystem\PathToImageSourceConverter.cs" />
     <Compile Include="MarkupSystem\QuickGrid.cs" />
     <Compile Include="MarkupSystem\QuickGrid.GridLengthBuilder.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="ResourcesSystem\IResourceLoader.cs" />
     <Compile Include="ResourcesSystem\ResourceLoader.cs" />
     <Compile Include="ResourcesSystem\ResourceService.cs" />
+    <Compile Include="MarkupSystem\WpfExtensions.cs" />
     <Compile Include="SetterSystem\BindSetterContext.cs" />
     <Compile Include="SetterSystem\ListSetterProvider.cs" />
     <Compile Include="SetterSystem\SetterContext.cs" />
