@@ -45,6 +45,7 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml" />
@@ -75,6 +76,7 @@
     <Compile Include="Resources\ResourceServiceTest.cs" />
     <Compile Include="Resources\ResourceSystemTestContext.cs" />
     <Compile Include="Resources\ResourceSystemTests.cs" />
+    <Compile Include="VisualScannerTests.cs" />
     <Compile Include="XamlUsageContext.cs" />
     <Compile Include="XamlWriterTests.cs" />
   </ItemGroup>

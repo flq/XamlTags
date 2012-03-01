@@ -85,13 +85,13 @@ namespace XamlTags.Tests
             i.ToMaybeOf<InvokeMemberHandler>().HasValue.Should().BeTrue();
         }
 
-        [Test,Ignore("Even though conversion is possible, IsAssignableFrom returns false, ultimately failing this for now")]
-        public void cast_through_maybe_case3()
+        [Test]
+        public void cast_is_based_on_is_assignable()
         {
             int i = 1;
             double d = i;
 
-            i.ToMaybeOf<double>().HasValue.Should().BeTrue();
+            i.ToMaybeOf<double>().HasValue.Should().BeFalse();
         }
     }
 }

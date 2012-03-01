@@ -87,9 +87,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="WindowContents.xaml.cs">
+      <DependentUpon>WindowContents.xaml</DependentUpon>
+    </Compile>
     <Page Include="RedYellowDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WindowContents.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="YellowDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>

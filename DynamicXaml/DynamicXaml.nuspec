@@ -6,7 +6,7 @@
     <authors>Frank Quednau</authors>
     <owners>Frank Quednau</owners>
     <description>Fluent dynamic API for creating XAML Object trees, inspired by the fubu project HtmlTags</description>
-    <releaseNotes>Minor API Changes, GetVisualParent extension method, Focus-helper, queue action on dispatcher</releaseNotes>
+    <releaseNotes>Introduction of VisualScanner to recursively find elements in the visual tree</releaseNotes>
     <projectUrl>https://github.com/flq/XamlTags</projectUrl>
     <licenseUrl>http://www.opensource.org/licenses/apache2.0</licenseUrl>
     <iconUrl>http://realfiction.net/files/dynamicxaml.png</iconUrl>

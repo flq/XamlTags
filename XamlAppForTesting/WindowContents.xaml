@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="XamlAppForTesting.WindowContents"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dx="clr-namespace:DynamicXaml.MarkupSystem;assembly=DynamicXaml" mc:Ignorable="d" >
+    <Grid dx:QuickGrid.With="2*,3x*|2x*,20">
+        <Rectangle Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Red" />
+        <StackPanel>
+            <Border x:Name="Red" Background="Red">
+                <Button>A</Button>
+            </Border>
+            <Button>B</Button>
+            <Rectangle Height="10" Fill="Aquamarine"></Rectangle>
+        </StackPanel>
+    </Grid>
+</UserControl>
