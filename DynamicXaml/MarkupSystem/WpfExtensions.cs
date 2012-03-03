@@ -1,13 +1,17 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Markup;
+using System.Windows.Markup.Primitives;
 using System.Windows.Media;
 using System.Windows.Threading;
 using System.Windows.Xps.Serialization;
 using DynamicXaml.Extensions;
+using System.Linq;
 
 namespace DynamicXaml.MarkupSystem
 {
@@ -52,6 +56,32 @@ namespace DynamicXaml.MarkupSystem
             var f = new XpsSerializerFactory();
             var w = f.CreateSerializerWriter(new MemoryStream());
             w.Write(fixedDoc);
+        }
+
+        /// <summary>
+        /// List all dependency properties of a given dependency object
+        /// </summary>
+        public static IEnumerable<DependencyProperty> GetDependencyProperties(this DependencyObject element)
+        {
+            return MarkupWriter.GetMarkupObjectFor(element)
+                .Properties.Where(p => p.DependencyProperty != null)
+                .Select(p => p.DependencyProperty);
+        }
+
+        /// <summary>
+        /// List all attached properties of a given dependency object
+        /// </summary>
+        public static IEnumerable<DependencyProperty> GetAttachedProperties(this DependencyObject element)
+        {
+            return MarkupWriter.GetMarkupObjectFor(element)
+                .Properties.Where(p => p.IsAttached)
+                .Select(p => p.DependencyProperty);
+        }
+
+        public static IEnumerable<BindingBase> GetBindings(this DependencyObject element)
+        {
+            var dpList = new List<DependencyProperty>(element.GetDependencyProperties().Concat(element.GetAttachedProperties()));
+            return dpList.Select(dp => BindingOperations.GetBindingBase(element, dp)).Where(bb => bb != null);
         }
     }
 }

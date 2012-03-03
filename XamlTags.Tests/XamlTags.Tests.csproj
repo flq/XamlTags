@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="AddUsage.cs" />
     <Compile Include="BasicUsage.cs" />
+    <Compile Include="BindingIdentificationTests.cs" />
     <Compile Include="BindingOneWay.cs" />
     <Compile Include="BindingUsage.cs" />
     <Compile Include="BoundAttachedPropertyUsage.cs" />
