@@ -82,6 +82,7 @@ namespace DynamicXaml.ResourcesSystem
                     foreach (DictionaryEntry entry in reader)
                     {
                         var rawResourceName = (string) entry.Key;
+                        if (HasImageExtension(rawResourceName)) continue;
                         var binReader = new BamlBinaryReader((Stream) entry.Value);
                         var r = new BamlRootElementCheck(binReader);
                         var element = r.RootElement();
@@ -90,6 +91,13 @@ namespace DynamicXaml.ResourcesSystem
                     }
                 }
             }
+        }
+
+        private static readonly HashSet<string> extensions = new HashSet<string> { ".gif", ".jpg", ".jpeg", ".bmp", ".ico", ".png" };
+
+        private static bool HasImageExtension(string name)
+        {
+            return extensions.Contains(Path.GetExtension(name)?? "");
         }
 
         private static string ConvertToXaml(string bamlResource)
