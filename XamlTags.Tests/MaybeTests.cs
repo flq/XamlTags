@@ -68,7 +68,7 @@ namespace XamlTags.Tests
         public void choose_default_if_none()
         {
             string s = null;
-            s.ToMaybe().MustHaveValue("foo").Should().Be("foo");
+            s.ToMaybe().GetValue("foo").Should().Be("foo");
         }
 
         [Test]

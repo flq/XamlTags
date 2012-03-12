@@ -16,7 +16,13 @@ namespace DynamicXaml.Extensions
             return @object.HasValue ? new Maybe<T>(@object.Value) : Maybe<T>.None;
         }
 
+        [Obsolete("Please use GetValue for getting the value or a provided default")]
         public static T MustHaveValue<T>(this Maybe<T> @object, T defaultValue)
+        {
+            return @object.GetValue(defaultValue);
+        }
+
+        public static T GetValue<T>(this Maybe<T> @object, T defaultValue)
         {
             return !@object ? defaultValue : @object.Value;
         }
@@ -75,6 +81,15 @@ namespace DynamicXaml.Extensions
         public static Maybe<U> Get<T, U>(this Maybe<T> value, Func<T, Maybe<U>> map)
         {
             return value ? map(value.Value) : Maybe<U>.None;
+        }
+
+        /// <summary>
+        /// Returns false if either the Maybe has no value (None), or
+        /// if the condition returns false;
+        /// </summary>
+        public static bool Is<T>(this Maybe<T> value, Func<T,bool> condition)
+        {
+            return value.HasValue && condition(value.Value);
         }
 
         public static Maybe<T> Or<T>(this Maybe<T> value, Maybe<T> orValue)
